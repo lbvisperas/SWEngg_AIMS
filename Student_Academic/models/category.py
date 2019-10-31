@@ -8,8 +8,8 @@ class StudentCategory(models.Model):
     _description = "TGGS Programs"
 
     name = fields.Char('Name', size=256, required=True)
-    code = fields.Char('Code', size=16, required=True)
+    description = fields.Text('Description')
 
     _sql_constraints = [
-        ('unique_category_code',
-         'unique(code)', 'Code should be unique per program category!')]
+        ('unique_category_name',
+         'unique(name)', 'Program name should be unique per program category!')]

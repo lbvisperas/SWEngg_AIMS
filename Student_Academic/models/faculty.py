@@ -15,16 +15,6 @@ class StudentFaculty(models.Model):
     middle_name = fields.Char('Middle Name', size=128)
     last_name = fields.Char('Last Name', size=128, required=True)
     birth_date = fields.Date('Birth Date', required=True)
-    blood_group = fields.Selection([
-        ('A+', 'A+ve'),
-        ('B+', 'B+ve'),
-        ('O+', 'O+ve'),
-        ('AB+', 'AB+ve'),
-        ('A-', 'A-ve'),
-        ('B-', 'B-ve'),
-        ('O-', 'O-ve'),
-        ('AB-', 'AB-ve')
-    ], string='Blood Group')
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female')
@@ -32,19 +22,27 @@ class StudentFaculty(models.Model):
     nationality = fields.Many2one('res.country', 'Nationality')
     emergency_contact = fields.Many2one(
         'res.partner', 'Emergency Contact')
-    visa_info = fields.Char('Visa Info', size=64)
-    id_number = fields.Char('ID Card Number', size=64)
     login = fields.Char(
         'Login', related='partner_id.user_id.login', readonly=1)
     last_login = fields.Datetime('Latest Connection', readonly=1,
                                  related='partner_id.user_id.login_date')
+    emp_id = fields.Many2one('hr.employee', 'TGGS Faculty User')
+
+    # Course and Department Based
+    faculty_course_id = fields.Many2one('student.course', 'Course')
+    faculty_department = fields.Many2one('student.course', 'Department')
+    faculty_role = fields.Selection([
+        ('coordinator', 'Coordinator'),
+        ('lecturer', 'Lecturer'),
+        ('lecturer and researcher', 'Lecturer and Researcher'),
+        ('research assistant', 'Research Assistant'),
+    ], 'Faculty Role')
     faculty_subject_ids = fields.Many2many('student.subject', string='Subject(s)',
                                            track_visibility='onchange')
-    emp_id = fields.Many2one('hr.employee', 'HR Employee')
 
     @api.multi
     @api.constrains('birth_date')
-    def _check_birthdate(self):
+    def _check_birth_date(self):
         for record in self:
             if record.birth_date > fields.Date.today():
                 raise ValidationError(_(
@@ -68,5 +66,5 @@ class StudentFaculty(models.Model):
     #def get_import_templates(self):
      #   return [{
      #       'label': _('Import Template for Faculties'),
-     #       'template': '/school/static/xls/student_faculty.xls'
+     #       'template': '/Student_Academic/static/xls/student_faculty.xls'
      #   }]

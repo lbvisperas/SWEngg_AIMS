@@ -5,7 +5,7 @@
         <menuitem id="menu_school_school_root"
                   name="AIMS"
                   sequence="10"
-                  web_icon="school,static/description/tggs.jpg"
+                  web_icon="Student_Academic/static/description/tggs.jpg"
                   groups="base.group_user"/>
 
         <!-- STUDENT -->
