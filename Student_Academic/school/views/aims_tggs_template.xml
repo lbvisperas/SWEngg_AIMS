@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="fav_ico" name="aims Icon" inherit_id="web.layout">
+            <xpath expr="//html/head/title" position="replace">
+                <title>AIMS</title>
+            </xpath>
+        </template>
+
+        <template id="fav_ico" name="aims Icon" inherit_id="web.layout">
+            <xpath expr="//html/head/link[1]" position="replace">
+                <link rel="shortcut icon"
+                    href="/school/static/description/tggs.ico"
+                    type="image/x-icon" />
+            </xpath>
+        </template>
+    </data>
+</odoo>
