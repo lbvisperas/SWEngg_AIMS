@@ -1,0 +1,98 @@
+<odoo>
+    <record id="registration_tree_view" model="ir.ui.view">
+        <field name="name">registration.tree.view</field>
+        <field name="model">registration.new</field>
+        <field name="arch" type="xml">
+            <tree string="Registration Form">
+                <field name="registration_NO"/>
+                <field name="title"/>
+                <field name="first_name"/>
+                <field name="last_name"/>
+                <field name="student_ID"/>
+                <field name="registration_date"/>
+                <field name="course"/>
+                <field name="subject"/>
+                <field name="batch"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="registration_form_view" model="ir.ui.view">
+        <field name="name">registration.form.view</field>
+        <field name="model">registration.new</field>
+        <field name="arch" type="xml">
+            <form string="Registration Form">
+                <header>
+                    <button name="btn_submit" string="Submit" class="oe_highlight" type="object" states="draft"/>
+                    <button name="btn_confirm" string="Confirm" class="oe_highlight" type="object" states="submit"/>
+                    <button name="btn_refuse" string="Refuse" type="object" states="submit"/>
+                    <field name="state" widget="statusbar" statusbar_visible="submit,confirm,refuse"/>
+                </header>
+                <sheet>
+                    <field name="image" widget="image" class="oe_left oe_avatar"/>
+                    <div class="oe_title">
+                        <h2>
+                            <field name="title" placeholder="Title" style="width: 20%%"/>
+                        </h2>
+                        <h2>
+                            <field name="first_name" string="First Name" placeholder="First Name"
+                                   style="max-width: 750px; width: 500px"/>
+                            <field name="last_name" string="Last Name" placeholder="Last Name"
+                                   style="max-width: 750px; width: 500px"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="student_ID"/>
+                            <field name="registration_NO"/>
+                            <field name="registration_date"/>
+                        </group>
+                        <group>
+                            <field name="course"/>
+                            <field name="subject"/>
+                            <field name="batch"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="registration_search_view" model="ir.ui.view">
+        <field name="name">Registration Search View</field>
+        <field name="model">registration.new</field>
+        <field name="arch" type="xml">
+            <search string="Search Registration">
+                <field name="first_name"/>
+                <field name="subject"/>
+                <filter string="Software Systems Engineering" name="SSE" domain="[('course','=','SSE')]"
+                        help="Students with course as Software Systems Engineering"/>
+                <filter string="Smart Grids Engineering" name="SGE" domain="[('course','=','SGE')]"
+                        help="Students with course as Smart Grids Engineering"/>
+                <filter string="Electrical Power Engineering" name="EPE" domain="[('course','=','EPE')]"
+                        help="Students with course as Electrical Power Engineering"/>
+                <group expand="1" string="Group By">
+                    <filter string="Registration Date" name="reg_date" context="{'group_by':'registration_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="registration_action_window" model="ir.actions.act_window">
+        <field name="name">Registration window</field>
+        <field name="res_model">registration.new</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create new thesis proposals
+            </p>
+        </field>
+    </record>
+
+    <!-- Top menu item -->
+    <menuitem name="Registration" id="registration.menu_root"/>
+    <!-- Sub menu item -->
+    <menuitem name="Registration Form" id="registration.menu_1" parent="registration.menu_root"
+              action="registration_action_window"/>
+</odoo>
