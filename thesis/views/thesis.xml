@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="thesisproposal_tree_view" model="ir.ui.view">
+        <field name="name">thesisproposal.tree.view</field>
+        <field name="model">thesisproposal</field>
+        <field name="arch" type="xml">
+            <tree string="Thesis Proposal information">
+                <field name="first_name"/>
+                <field name="last_name"/>
+                <field name="student_ID"/>
+                <field name="level"/>
+                <field name="program"/>
+                <field name="department"/>
+                <field name="address"/>
+                <field name="mobile"/>
+                <field name="email"/>
+                <field name="proposal_title"/>
+                <field name="semester"/>
+                <field name="gpa"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="thesisproposal_form_view" model="ir.ui.view">
+        <field name="name">thesisproposal.form.view</field>
+        <field name="model">thesisproposal</field>
+        <field name="arch" type="xml">
+            <form string="Thesis Proposal Information">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <group>
+                    <field name="first_name" string="Name" placeholder="Name" style="max-width: 1150px; width: 500px"/>
+                    <field name="last_name" string="Last Name" placeholder="Last Name" style="max-width: 1150px; width: 500px"/>
+                    <field name="student_ID" string="Student ID" placeholder="Student ID" style="max-width: 1150px; width: 500px"/>
+                    <field name="level" string="Educational Level" style="max-width: 1150px; width: 500px"/>
+                    <field name="program" string="Program" style="max-width: 1150px; width: 500px"/>
+                    <field name="department" string="Department" style="max-width: 1150px; width: 500px"/>
+                    <field name="address" string="Address" placeholder="Address" style="max-width: 1150px; width: 500px"/>
+                    <field name="mobile" string="Mobile" placeholder="Mobile" style="max-width: 1150px; width: 500px"/>
+                    <field name="email" string="Email" placeholder="Email" style="max-width: 1150px; width: 500px"/>
+                    <field name="proposal_title" string="Proposal Thesis Title" placeholder="Proposal Thesis Title" style="max-width: 1150px; width: 500px; height: 150px"/>
+                    <field name="semester" string="Semester" placeholder="Semester" style="max-width: 1150px; width: 500px"/>
+                    <field name="gpa" string="GPA" placeholder="GPA" style="max-width: 1150px; width: 500px"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="thesisproposal_action" model="ir.actions.act_window">
+        <field name="name">Thesis Proposal</field>
+        <field name="res_model">thesisproposal</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create new thesis proposals
+            </p>
+        </field>
+    </record>
+
+    <record id="thesisprogress_action" model="ir.actions.act_window">
+        <field name="name">Thesis Progress</field>
+        <field name="res_model">thesisproposal</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create new thesis progress
+            </p>
+        </field>
+    </record>
+
+    <record id="thesisdefence_action" model="ir.actions.act_window">
+        <field name="name">Thesis Defence</field>
+        <field name="res_model">thesisproposal</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create new thesis defence
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Thesis" id="thesisproposal_top_menu" sequence="0"/>
+    <menuitem name="Thesis Proposal" id="thesisproposal_menu" sequence="1" parent="thesisproposal_top_menu" action="thesisproposal_action"/>
+    <menuitem name="Thesis Progress" id="thesisprogress_menu" sequence="2" parent="thesisproposal_top_menu" action="thesisprogress_action"/>
+    <menuitem name="Thesis Defence" id="thesisdefence_menu" sequence="3" parent="thesisproposal_top_menu" action="thesisdefence_action"/>
+
+</odoo>
