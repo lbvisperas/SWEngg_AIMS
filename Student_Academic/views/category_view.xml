@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <tree string="Department">
                     <field name="name" />
-                    <field name="code" />
+                    <field name="description" />
                 </tree>
             </field>
         </record>
@@ -22,7 +22,7 @@
                     <sheet>
                         <group col="4">
                             <field name="name" />
-                            <field name="code" />
+                            <field name="description" />
                         </group>
                     </sheet>
                 </form>
@@ -36,11 +36,9 @@
             <field name="arch" type="xml">
                 <search string="Category">
                     <field name="name" />
-                    <field name="code" />
                     <newline />
                     <group expand="0" string="Group By...">
                         <filter name="group_by_name" string="Name" domain="[]" context="{'group_by':'name'}" />
-                        <filter name="group_by_code" string="Code" domain="[]" context="{'group_by':'code'}" />
                     </group>
                 </search>
             </field>
