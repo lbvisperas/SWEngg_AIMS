@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_users_simple_form" model="ir.actions.act_window">
+        	<field name="name">internship</field>
+			<field name="type">ir.actions.act_window</field>
+        	<field name="res_model">internship.internship</field>
+        	<field name="view_type">form</field>
+        	<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+            	<p class="oe_view_nocontent_create">Create Weekly Report Form
+            	</p>
+        	</field>
+        </record>
+
+		<!-- Student tree view -->
+		<record id="student_tree_view" model="ir.ui.view">
+			<field name="first_name">internship</field>
+			<field name="model">internship.internship</field>
+			<field name="arch" type="xml">
+				<tree string="Internship">
+					<field name="first_name"/>
+				</tree>
+			</field>
+	   	</record>
+
+		<!-- Student form view -->
+		<record id="student_free_view" model="ir.ui.view">
+			<field name="first_name">internship</field>
+			<field name="model">internship.internship</field>
+			<field name="arch" type="xml">
+				<form string="Internship">
+					<sheet>
+						<group>
+							<group>
+								<h3>Student Information</h3>
+								<field name="first_name"/>
+							</group>
+							<group>
+								<h3>Company Information</h3>
+								<field name="company"/>
+							</group>
+							<group>
+								<h3>Advisor Information</h3>
+								<field name="professor"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+	</data>
+</odoo>
