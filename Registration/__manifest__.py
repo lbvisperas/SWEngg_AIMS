@@ -19,12 +19,12 @@
     'version': '12.0.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base','Student_Academic'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-        'views/views.xml',
+        'views/registration_view.xml',
     ],
     # only loaded in demonstration mode
     'demo': [],

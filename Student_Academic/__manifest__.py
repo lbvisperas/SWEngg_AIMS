@@ -11,7 +11,10 @@
 	'depends': ['board', 'document', 'hr', 'web', 'website', 'mail'],
 	'images': ['static/description/icon.png'],
 	'data': [
+		'security/tggs_security.xml',
 		'security/ir.model.access.csv',
+		'reports/report_menu.xml',
+		'reports/report_tggs_certificate.xml',
 		'views/student_view.xml',
 		'views/course_view.xml',
 		'views/batch_view.xml',

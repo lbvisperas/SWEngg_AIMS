@@ -176,25 +176,25 @@
                                 <group>
                                     <group colspan="3">
                                         <field name="student_no"/>
-                                        <field name="student_course_id"/>
-                                        <field name="student_batch_id"/>
-                                        <field name="student_department"/>
                                     </group>
                                 </group>
                                 <group>
-                                    <separator string="Subject Details"
+                                    <separator string="Admission Details"
                                                colspan="4"/>
                                     <field name="course_detail_ids"
                                            nolabel="1">
-                                        <tree string="Subject Details">
-                                            <field name="subject_ids"/>
+                                        <tree string="Course Details">
+                                            <field name="course_id"/>
+                                            <field name="batch_id"/>
+                                            <field name="department"/>
+                                            <field name="subject_ids" widget="many2many_tags"/>
                                         </tree>
                                         <form>
-                                            <!--<group cols="2" colspan="2">
+                                            <group cols="2" colspan="2">
                                                 <field name="course_id"/>
                                                 <field name="batch_id" domain="[('course_id', '=', course_id)]"/>
                                                 <field name="department"/>
-                                            </group>-->
+                                            </group>
                                             <group col="4" string="Subjects">
                                                 <field name="subject_ids" colspan="4" nolabel="1"/>
                                             </group>

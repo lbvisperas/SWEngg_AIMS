@@ -3,7 +3,7 @@
     <data>
         <!-- AIMS School Menu -->
         <menuitem id="menu_school_school_root"
-                  name="AIMS"
+                  name="TGGS_AIMS"
                   sequence="10"
                   web_icon="Student_Academic/static/description/tggs.jpg"
                   groups="base.group_user"/>
@@ -73,10 +73,11 @@
                   groups="base.group_user"/>
 
         <!-- REGISTRATION -->
-        <menuitem id="menu_op_registration_registration_main"
+        <menuitem id="menu_registration_registration_main"
                   name="Registration"
                   parent="menu_school_school_root"
-                  action="act_open_student_category_view"
+                  action="act_subject_registration_view"
+                  groups="base.group_user"
                   sequence="30"/>
 
         <!-- THESIS -->

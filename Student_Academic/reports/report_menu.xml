@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <report id="action_report_student_bonafide"
+                model="student.student"
+                string="TGGS Certificate"
+                report_type="qweb-pdf"
+                name="school.report_tggs_certificate"
+                file="school.report_tggs_certificate"/>
+    </data>
+</odoo>

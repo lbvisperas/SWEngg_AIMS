@@ -1,23 +1,4 @@
 # -*- coding: utf-8 -*-
-###############################################################################
-#
-#    Tech-Receptives Solutions Pvt. Ltd.
-#    Copyright (C) 2009-TODAY Tech-Receptives(<http://www.techreceptives.com>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Lesser General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Lesser General Public License for more details.
-#
-#    You should have received a copy of the GNU Lesser General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-###############################################################################
 
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
@@ -35,20 +16,38 @@ class StudentSubject(models.Model):
     working_hrs = fields.Integer('Total Working Hours per Semester', size=3)
     ect_cred = fields.Integer('ECTS Credits', size=3)
     kmu_cred = fields.Char('KMUTNB Credits', size=12)
-    course = fields.Many2one('student.course', 'Course', required=True)
     # grade_weightage = fields.Float('Grade Weightage')
-    type = fields.Selection(
-        [('theory', 'Theory'), ('practical', 'Practical'),
-         ('both', 'Both'), ('other', 'Other')],
-        'Type', default="theory", required=True)
     subject_type = fields.Selection(
         [('compulsory', 'Compulsory'), ('elective', 'Elective')],
         'Subject Type', default="compulsory", required=True)
+    state = fields.Selection([
+        ('draft', 'Draft'), ('submitted', 'Submitted'),
+        ('approved', 'Approved'), ('rejected', 'Rejected')],
+        default='draft', string='state', copy=False,
+        track_visibility='onchange')
 
     _sql_constraints = [
         ('unique_subject_code',
          'unique(code)', 'Code should be unique per subject!'),
     ]
+
+    # States for Approval by Backoffice Administrator
+
+    @api.multi
+    def action_reset_draft(self):
+        self.state = 'draft'
+
+    @api.multi
+    def action_reject(self):
+        self.state = 'rejected'
+
+    @api.multi
+    def action_submitted(self):
+        self.state = 'submitted'
+
+    @api.multi
+    def action_approve(self):
+        self.state = 'approve'
 
     # Subject Code
     @api.multi
@@ -65,5 +64,5 @@ class StudentSubject(models.Model):
     def get_import_templates(self):
       return [{
          'label': _('Import Template for Subjects'),
-         'template': '/Student_Academic/static/xls/tggs_subject.xls'
+         'template': '/Student_Academicl/static/xls/tggs_subject.xls'
      }]

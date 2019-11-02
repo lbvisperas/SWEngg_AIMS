@@ -6,7 +6,7 @@ from odoo.exceptions import ValidationError
 
 class StudentStudentCourse(models.Model):
     _name = "student.student.course"
-    _description = "Student Course Details"
+    _description = "TGGS Student Course"
 
     student_id = fields.Many2one('student.student', 'Student Number', ondelete="cascade")
     course_id = fields.Many2one('student.course', 'Course')
@@ -16,7 +16,7 @@ class StudentStudentCourse(models.Model):
 
 class StudentStudent(models.Model):
     _name = "student.student"
-    _description = "Student"
+    _description = "TGGS Student"
     _inherit = "mail.thread"
     _inherits = {"res.partner": "partner_id"}
 
@@ -28,7 +28,6 @@ class StudentStudent(models.Model):
     country_birth = fields.Many2one('res.country','Country of Birth')
     nationality = fields.Many2one('res.country', 'Nationality', required=True)
     nat_check = fields.Boolean(compute='_get_value')
-    # religion = fields.Many2one('religion.religion', string="Religion")
     height = fields.Integer(string="Height (cm)")
     weight = fields.Integer(string="Weight (kg)")
     status = fields.Selection([
@@ -52,9 +51,14 @@ class StudentStudent(models.Model):
         ('female', 'Female'),
         ('other', 'Other')
     ], string='Gender', required=True, default='male', track_visibility='onchange')
+
+    # get one specific class for mobile and contact information here
+
     mobile = fields.Char('Mobile')
     email = fields.Char('Email')
     emergency_contact = fields.Many2one('res.partner', 'Emergency Contact')
+
+    # get one specific class for passport info
     passport_number = fields.Char(string='Passport Number', track_visibility='always')
     passport_issue = fields.Date('Passport Issuance Date')
     passport_expire = fields.Date('Passport Expiry Date')
@@ -160,27 +164,27 @@ class StudentStudent(models.Model):
                     "[ERROR] Birth Date cannot be greater than current date!"))
 
     # Course Test Relationship <=> is course equivalent to parent
-    @api.multi
-    @api.constrains('course_detail_ids')
-    def _check_course_details(self):
-        for record in self:
-            if record.course_detail_ids:
-                list2 = list(record.student_no)
-                raise ValidationError(_(
-                    "Test Check"))
+    #@api.multi
+    #@api.constrains('course_detail_ids')
+    #def _check_course_details(self):
+    #    for record in self:
+    #        if record.student_course_id:
+    #            list2 = list(record.student_no)
+    #            raise ValidationError(_(
+    #                "Test Check"))
 
 
     @api.model
     def get_import_templates(self):
         return [{
             'label': _('Import Template for Students'),
-            'template': '/Student_Academic/static/xls/tggs_student.xls'
+            'template': '/school/static/xls/tggs_student.xls'
         }]
 
     # Code adapted from OpenEducat => need to integrate an environment for own module
     @api.multi
     def create_student_user(self):
-        user_group = self.env.ref("openeducat_core.group_op_student") or False
+        user_group = self.env.ref("school.group_student_student") or False
         users_res = self.env['res.users']
         for record in self:
             if not record.user_id:

@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <tree string="Course">
                     <field name="name"/>
-                    <field name="code"/>
+                    <field name="coordinator"/>
                     <field name="section"/>
                     <field name="evaluation_type"/>
                     <field name="parent_id"/>
@@ -26,7 +26,7 @@
                     <sheet>
                         <group colspan="4" col="4" name="main">
                             <field name="name"/>
-                            <field name="code"/>
+                            <field name="coordinator"/>
                             <field name="section"/>
                             <field name="evaluation_type"/>
                             <field name="parent_id"/>
@@ -52,7 +52,7 @@
             <field name="arch" type="xml">
                 <search string="Course">
                     <field name="name"/>
-                    <field name="code"/>
+                    <field name="coordinator"/>
                     <field name="evaluation_type"/>
                     <field name="parent_id"/>
                     <newline/>

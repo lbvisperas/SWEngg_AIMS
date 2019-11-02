@@ -14,6 +14,7 @@ class StudentCourse(models.Model):
          ('CWA', 'CWA'), ('CCE', 'CCE')],
         'Evaluation Type', default="normal", required=True)
     subject_ids = fields.Many2many('student.subject', string='Subject(s)')
+    coordinator = fields.Many2one('student.faculty', string='Coordinator')
     max_unit_load = fields.Float("Maximum Unit Load")
     min_unit_load = fields.Float("Minimum Unit Load")
 
