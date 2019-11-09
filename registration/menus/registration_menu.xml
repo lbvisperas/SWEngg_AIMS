@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="menu_subject_registration_type_sub"
+                  name="Registration"
+                  parent="student_academic.menu_registration_registration_main"
+                  sequence="10"
+                  action="act_subject_registration_view"
+                  groups="base.group_user"/>
+
+    </data>
+</odoo>
+
