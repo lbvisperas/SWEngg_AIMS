@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--<menuitem id="school_menu"
+				groups="base.group_user"
+              	name="Internship"/>-->
+
+    	<menuitem id="menu_student_internship_type_sub"
+              	parent="aims_student_academic.menu_op_intern_intern_main"
+              	name="Internship"
+	  			groups="base.group_user"
+                sequence="10"
+				action="act_student_internship_view"/>
+
+        <!--<menuitem id="school_student_menu"
+                  name="Weekly Report"
+                  parent="school_menu"
+                  groups="base.group_user"
+                  sequence="2"/>-->
+
+    </data>
+</odoo>
