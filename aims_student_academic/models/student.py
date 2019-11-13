@@ -8,7 +8,7 @@ class StudentStudentCourse(models.Model):
     _name = "student.student.course"
     _description = "TGGS Student Course"
     student_id = fields.Many2one('student.student', 'Student Number', ondelete="cascade")
-    batch_id = fields.Many2one('student.batch', 'Batch')
+    batch_id = fields.Many2one('student.batch', 'Batch', track_visibility='onchange')
     course_id = fields.Many2one('student.course', 'Course')
     department = fields.Many2one('student.course', 'Department')
     subject_ids = fields.Many2many('student.subject', string='Subjects')
@@ -162,14 +162,13 @@ class StudentStudent(models.Model):
                     "[ERROR] Birth Date cannot be greater than current date!"))
 
     # Course Test Relationship <=> is course equivalent to parent
-    #@api.multi
-    #@api.constrains('course_detail_ids')
-    #def _check_course_details(self):
-    #    for record in self:
-    #        if record.student_course_id:
-    #            list2 = list(record.student_no)
-    #            raise ValidationError(_(
-    #                "Test Check"))
+    @api.multi
+    @api.constrains('course_detail_ids')
+    def _check_course_details(self):
+        if self.course_detail_ids:
+            for record in self.course_detail_ids:
+                list2 = list(record.course_id)
+            #if list2 != self.student_course_id:
 
 
     @api.model

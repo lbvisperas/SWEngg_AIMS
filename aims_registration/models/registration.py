@@ -16,7 +16,7 @@ class StudentRegistration(models.Model):
     batch_id = fields.Many2one('student.batch', 'Batch', required=True,
                                track_visibility='onchange')
     compulsory_subject_ids = fields.Many2many(
-        'op.subject', 'subject_compulsory_rel',
+        'student.subject', 'subject_compulsory_rel',
         'register_id', 'subject_id', string="Compulsory Subjects",
         readonly=True)
     elective_subject_ids = fields.Many2many(

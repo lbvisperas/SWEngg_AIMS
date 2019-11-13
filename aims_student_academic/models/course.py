@@ -16,6 +16,7 @@ class StudentCourse(models.Model):
     coordinator = fields.Many2one('student.faculty', string='Coordinator')
     max_unit_load = fields.Float("Maximum Unit Load")
     min_unit_load = fields.Float("Minimum Unit Load")
+    batch_id = fields.Many2many('student.batch', string='Batches')
 
     _sql_constraints = [
         ('unique_course_code',
