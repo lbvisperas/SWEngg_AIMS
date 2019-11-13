@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-from odoo.exceptions import ValidationError
+#from odoo.exceptions import ValidationError
 
 
 class StudentBatch(models.Model):
@@ -18,8 +18,4 @@ class StudentBatch(models.Model):
     ], 'Semester', default='first semester')
     start_date = fields.Date('Start Date', required=True, default=fields.Date.today())
     end_date = fields.Date('End Date', required=True)
-    course_id = fields.Many2many('student.course', required=True)
-
-    _sql_constraints = [
-        ('unique_batch_code',
-         'unique(code)', 'Code should be unique per batch!')]
+    course_id = fields.Many2one('student.course', 'Course', required=True)
