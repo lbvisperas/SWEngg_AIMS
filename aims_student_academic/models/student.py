@@ -7,12 +7,17 @@ from odoo.exceptions import ValidationError
 class StudentStudentCourse(models.Model):
     _name = "student.student.course"
     _description = "TGGS Student Course"
-
     student_id = fields.Many2one('student.student', 'Student Number', ondelete="cascade")
-    course_id = fields.Many2one('student.course', 'Course')
     batch_id = fields.Many2one('student.batch', 'Batch')
+    course_id = fields.Many2one('student.course', 'Course')
     department = fields.Many2one('student.course', 'Department')
     subject_ids = fields.Many2many('student.subject', string='Subjects')
+
+    sql_constraints = [
+        ('unique_name_student_id',
+         'unique(student_id,course_id,batch_id)',
+         'Student must be unique per Course / Batch!'),
+    ]
 
 class StudentStudent(models.Model):
     _name = "student.student"
@@ -53,7 +58,6 @@ class StudentStudent(models.Model):
     ], string='Gender', required=True, default='male', track_visibility='onchange')
 
     # get one specific class for mobile and contact information here
-
     mobile = fields.Char('Mobile')
     email = fields.Char('Email')
     emergency_contact = fields.Many2one('res.partner', 'Emergency Contact')
@@ -65,7 +69,7 @@ class StudentStudent(models.Model):
     visa_number = fields.Char('Visa Number', size=64)
     visa_issue = fields.Date('Visa Issuance Date')
     visa_expire = fields.Date('Visa Expiry Date')
-    partner_id = fields.Many2one('res.partner', 'Partner', ondelete="cascade")
+    partner_id = fields.Many2one('res.partner', 'Partner', ondelete="cascade", required=True)
 
     # BASIC FAMILY INFORMATION
     parent_status = fields.Selection([
@@ -90,12 +94,6 @@ class StudentStudent(models.Model):
 
     # TGGS EDUCATIONAL INFORMATION
     category_id = fields.Many2one('student.category', 'Category')
-    # scholarship_id = fields.Selection([
-    #    ('daad', 'DAAD'),
-    #    ('kmutnb', 'KMUTNB'),
-    #    ('company', 'Company'),
-    #    ('self', 'Self'),
-    #], string='Scholarship Type', default='DAAD')
     student_course_id = fields.Many2one('student.course', 'Course')
     student_batch_id = fields.Many2one('student.batch', 'Batch')
     student_department = fields.Many2one('student.course', 'Department')
@@ -184,7 +182,7 @@ class StudentStudent(models.Model):
     # Code adapted from OpenEducat => need to integrate an environment for own module
     @api.multi
     def create_student_user(self):
-        user_group = self.env.ref("school.group_student_student") or False
+        user_group = self.env.ref("aims_student_academic.group_student_student") or False
         users_res = self.env['res.users']
         for record in self:
             if not record.user_id:

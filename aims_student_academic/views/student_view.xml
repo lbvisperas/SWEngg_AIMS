@@ -176,6 +176,7 @@
                                 <group>
                                     <group colspan="3">
                                         <field name="student_no"/>
+                                        <field name="student_course_id"/>
                                     </group>
                                 </group>
                                 <group>
@@ -184,15 +185,15 @@
                                     <field name="course_detail_ids"
                                            nolabel="1">
                                         <tree string="Course Details">
-                                            <field name="course_id"/>
                                             <field name="batch_id"/>
+                                            <field name="course_id"/>
                                             <field name="department"/>
                                             <field name="subject_ids" widget="many2many_tags"/>
                                         </tree>
                                         <form>
                                             <group cols="2" colspan="2">
-                                                <field name="course_id"/>
                                                 <field name="batch_id" domain="[('course_id', '=', course_id)]"/>
+                                                <field name="course_id" />
                                                 <field name="department"/>
                                             </group>
                                             <group col="4" string="Subjects">
