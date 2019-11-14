@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<data>
+    <record id="view_student_transcript_tree" model="ir.ui.view">
+            <field name="name">student.transcript.tree</field>
+            <field name="model">student.transcript</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Transcript">
+                    <field name="student_id" />
+                    <field name="full_name" />
+                    <field name="education_level" />
+                    <field name="program" />
+                    <field name="semester" />
+                    <field name="student_course_id"/>
+                    <field name="subject"/>
+                    <field name="evaluation_type" />
+                    <field name="grade" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_student_transcript_form" model="ir.ui.view">
+        <field name="name">student.transcript.form</field>
+        <field name="model">student.transcript</field>
+        <field name="priority" eval="8" />
+        <field name="arch" type="xml">
+            <form string="Transcript ">
+                <header>
+                    <button string="Reset Draft" name="action_reset_draft"
+                            groups="base.group_user"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state', '=', 'draft')] }"/>
+                    <button string="Submitted" name="action_submitted"
+                            groups="base.group_user"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'draft')] }"/>
+                    <button string="Confirmed" name="action_confirmed"
+                            groups="base.group_user"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state', '=', 'confirmed')] }"/>
+                    <button string="Refused" name="action_refused"
+                            groups="base.group_user"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state', '=', 'refused')] }"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,confirmed,refused"/>
+                </header>
+                <sheet>
+                    <group string="Student Information">
+                        <field name="student_no" on_change="onchange_student(student_no)" required="1"/>
+                        <field name="student_id" readonly="1"/>
+                        <field name="full_name" readonly="1"/>
+                        <field name="first_name" invisible="1"/>
+                        <field name="middle_name" invisible="1"/>
+                        <field name="last_name" invisible="1"/>
+                        <field name="program" readonly="1"/>
+                        <field name="education_level" readonly="1"/>
+                    </group>
+                    <group string="Subject Information">
+                        <field name="student_course_id" on_change="onchange_course(student_course_id)" required="1"/>
+                        <field name="subject" required="1"/>
+                        <field name="semester" required="1"/>
+                        <field name="evaluation_type" readonly="1"/>
+                        <field name="grade" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_student_transcript_search" model="ir.ui.view">
+        <field name="name">student.transcript.search</field>
+        <field name="model">student.transcript</field>
+        <field name="priority" eval="8" />
+        <field name="arch" type="xml">
+            <search string="Transcript">
+                <field name="first_name" />
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="act_open_student_transcript_view">
+        <field name="name">Transcript</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">student.transcript</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_student_transcript_search" />
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="act_open_student_transcript_view_form">
+        <field name="act_window_id" ref="act_open_student_transcript_view" />
+        <field name="sequence" eval="20" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_student_transcript_form" />
+    </record>
+
+    <record model="ir.actions.act_window.view" id="act_open_student_transcript_tree_tree">
+        <field name="act_window_id" ref="act_open_student_transcript_view" />
+        <field name="sequence" eval="10" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_student_transcript_tree" />
+    </record>
+
+</data>
+
+</odoo>

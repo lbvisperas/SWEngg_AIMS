@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <menuitem id="transcript_root"
+        <menuitem id="menu_transcript"
                   name="Transcript"
-                  sequence="0"/>
-        <menuitem id="sub_transcript_menu1"
-                  name="Students"
-                  parent="transcript_root"
-                  sequence="1"
-                  action="student_action"/>
-
-        <menuitem id="sub_transcript_menu2"
-                  parent="transcript_root"
-                  sequence="2"
-                  name="Grades"
-                  action="grades_action"/>
+                  parent="aims_student_academic.menu_grades_grades_main"
+                  sequence="10"
+                  action="act_open_student_transcript_view"
+                  groups="base.group_user"/>
     </data>
 </odoo>
