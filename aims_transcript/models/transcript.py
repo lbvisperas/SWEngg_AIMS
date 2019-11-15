@@ -77,5 +77,3 @@ class Transcript(models.Model):
         for record in self:
             record.state = 'refused'
 
-
-

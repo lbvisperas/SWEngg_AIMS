@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <record model="ir.ui.view" id="kanban_view_faculty">
-            <field name="name">Faculty Kanban</field>
-            <field name="model">student.faculty</field>
+        <record model="ir.ui.view" id="kanban_view_student_affairs">
+            <field name="name">Academic Affairs Kanban</field>
+            <field name="model">student.affairs</field>
             <field name="arch" type="xml">
                 <kanban class="o_res_partner_kanban">
                     <field name="id"/>
@@ -13,10 +13,10 @@
                             <div class="oe_kanban_global_click o_res_partner_kanban">
                                 <div class="o_kanban_image">
                                     <t t-if="record.image.value">
-                                        <img t-att-src="kanban_image('student.faculty', 'image', record.id.value)" alt="Faculty"/>
+                                        <img t-att-src="kanban_image('student.affairs', 'image', record.id.value)" alt="Academic Affairs"/>
                                     </t>
                                     <t t-if="!record.image.value">
-                                        <img t-att-src='_s + "/base/static/img/avatar.png"' alt="Faculty"/>
+                                        <img t-att-src='_s + "/base/static/img/avatar.png"' alt="Academic Affairs"/>
                                     </t>
                                 </div>
                                 <div class="oe_kanban_details">
@@ -34,14 +34,8 @@
                                         </a>
                                     </h4>
                                     <ul>
-                                        <li t-if="record.faculty_role.raw_value">
-                                            <field name="faculty_role" />
-                                        </li>
-                                        <li t-if="record.faculty_course_id.raw_value">
-                                            <field name="faculty_course_id" />
-                                        </li>
-                                        <li t-if="record.faculty_department.raw_value">
-                                            <field name="faculty_department" />
+                                        <li t-if="record.affairs_role.raw_value">
+                                            <field name="affairs_role" />
                                         </li>
                                         <li t-if="record.email.raw_value">
                                             <a t-attf-href="mailto:#{record.email.value}">
@@ -57,34 +51,32 @@
             </field>
         </record>
 
-        <record id="view_student_faculty_tree" model="ir.ui.view">
-            <field name="name">student.faculty.tree</field>
-            <field name="model">student.faculty</field>
+        <record id="view_student_affairs_tree" model="ir.ui.view">
+            <field name="name">student.affairs.tree</field>
+            <field name="model">student.affairs</field>
             <field name="priority" eval="8" />
             <field name="arch" type="xml">
-                <tree string="Faculty">
+                <tree string="Academic Affairs">
                     <field name="title" />
                     <field name="first_name" />
                     <field name="middle_name" />
                     <field name="last_name" />
                     <field name="emergency_contact" />
-                    <field name="faculty_role"/>
-                    <field name="faculty_course_id"/>
-                    <field name="faculty_department"/>
+                    <field name="affairs_role"/>
                 </tree>
             </field>
         </record>
 
-        <record id="view_student_faculty_form" model="ir.ui.view">
-            <field name="name">student.faculty.form</field>
-            <field name="model">student.faculty</field>
+        <record id="view_student_affairs_form" model="ir.ui.view">
+            <field name="name">student.affairs.form</field>
+            <field name="model">student.affairs</field>
             <field name="priority" eval="8" />
             <field name="arch" type="xml">
-                <form string="Faculty">
+                <form string="Academic Affairs">
                 <header groups="aims_student_academic.group_student_back_office_admin">
-                    <button name="%(faculty_create_employee_act)" string="Create Employee" type="action" class="oe_highlight" attrs="{'invisible': [('emp_id', '!=', False)]}"/>
-                    <button type="object" name="create_faculty_user"
-                                string="Create TGGS Faculty User"
+                    <button name="%(affairs_create_employee_act)" string="Create Employee" type="action" class="oe_highlight" attrs="{'invisible': [('emp_id', '!=', False)]}"/>
+                    <button type="object" name="create_academic_user"
+                                string="Create TGGS Academic Affairs User"
                                 class="oe_highlight"
                                 attrs="{'invisible': [('user_id', '!=', False)]}"/>
                 </header>
@@ -104,26 +96,20 @@
                             </h1>
                         </div>
                         <group col="6" colspan="4">
-                            <field name="faculty_role"/>
-                            <field name="faculty_course_id"/>
-                            <field name="faculty_department"/>
+                            <field name="affairs_role"/>
                             <field name="gender" />
                             <field name="mobile" />
                             <field name="email" />
+                            <field name='partner_id' />
+                            <field name="user_id" string="User" readonly="1"/>
+                            <field name='emp_id' />
                         </group>
                         <notebook colspan="4">
-                            <page name="subjects" string="Subjects">
-                                <field name="faculty_subject_ids" colspan="4" nolabel="1" />
-                            </page>
                             <page name="personal_information" string="Personal Information">
                                 <group col="4">
                                     <field name="birth_date" />
-                                    <field name="nationality" />
                                     <field name="emergency_contact" context="{'show_address': 1}"
                                         options='{"always_reload": True}' />
-                                    <field name='partner_id' />
-                                    <field name='emp_id' />
-                                    <field name="user_id" string="User" readonly="1"/>
                                 </group>
                                 <!--<group string="Address Detail" name="address">
                                     <label for="type" />
@@ -155,68 +141,62 @@
             </field>
         </record>
 
-        <record id="view_student_faculty_search" model="ir.ui.view">
-            <field name="name">student.faculty.search</field>
-            <field name="model">student.faculty</field>
+        <record id="view_student_affairs_search" model="ir.ui.view">
+            <field name="name">student.affairs.search</field>
+            <field name="model">student.affairs</field>
             <field name="priority" eval="8" />
             <field name="arch" type="xml">
-                <search string="Faculty">
+                <search string="Academic Affairs">
                     <field name="name" />
-                    <field name="faculty_role"/>
-                    <field name="faculty_course_id"/>
-                    <field name="faculty_department"/>
+                    <field name="affairs_role"/>
                     <newline />
                     <group expand="0" string="Group By...">
-                        <filter name="faculty_role" string="Role" domain="[]"
-                            context="{'group_by':'faculty_role'}" />
-                        <filter name="faculty_course_id" string="Course" domain="[]"
-                                context="{'group_by':'faculty_course_id'}" />
-                        <filter name="faculty_department" string="Department" domain="[]"
-                            context="{'group_by':'faculty_department'}" />
+                        <filter name="affairs_role" string="Role" domain="[]"
+                            context="{'group_by':'affairs_role'}" />
                     </group>
                 </search>
             </field>
         </record>
 
-        <record model="ir.actions.act_window" id="act_open_student_faculty_view">
-            <field name="name">Faculties</field>
+        <record model="ir.actions.act_window" id="act_open_student_affairs_view">
+            <field name="name">Student Affairs</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">student.faculty</field>
+            <field name="res_model">student.affairs</field>
             <field name="view_type">form</field>
             <field name="view_mode">kanban,tree,form</field>
-            <field name="search_view_id" ref="view_student_faculty_search" />
+            <field name="search_view_id" ref="view_student_affairs_search" />
             <field name="domain">[]</field>
             <field name="context">{}</field>
         </record>
 
-        <record model="ir.actions.act_window.view" id="act_open_student_faculty_view_form">
-            <field name="act_window_id" ref="act_open_student_faculty_view" />
+        <record model="ir.actions.act_window.view" id="act_open_student_affairs_view_form">
+            <field name="act_window_id" ref="act_open_student_affairs_view" />
             <field name="sequence" eval="20" />
             <field name="view_mode">form</field>
-            <field name="view_id" ref="view_student_faculty_form" />
+            <field name="view_id" ref="view_student_affairs_form" />
         </record>
 
-        <record model="ir.actions.act_window.view" id="act_open_student_faculty_view_tree">
-            <field name="act_window_id" ref="act_open_student_faculty_view" />
+        <record model="ir.actions.act_window.view" id="act_open_student_affairs_view_tree">
+            <field name="act_window_id" ref="act_open_student_affairs_view" />
             <field name="sequence" eval="10" />
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="view_student_faculty_tree" />
+            <field name="view_id" ref="view_student_affairs_tree" />
         </record>
 
-        <record model="ir.actions.act_window.view" id="act_open_student_faculty_view_kanban">
-            <field name="act_window_id" ref="act_open_student_faculty_view" />
+        <record model="ir.actions.act_window.view" id="act_open_student_affairs_view_kanban">
+            <field name="act_window_id" ref="act_open_student_affairs_view" />
             <field name="sequence" eval="5" />
             <field name="view_mode">kanban</field>
-            <field name="view_id" ref="kanban_view_faculty" />
+            <field name="view_id" ref="kanban_view_student_affairs" />
         </record>
 
-        <record model="ir.actions.act_window" id="act_open_student_faculty_view_2">
-            <field name="name">Faculties</field>
+        <record model="ir.actions.act_window" id="act_open_student_affairs_view_2">
+            <field name="name">Academic Affairs</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">student.faculty</field>
+            <field name="res_model">student.affairs</field>
             <field name="view_type">form</field>
             <field name="view_mode">kanban,tree,form</field>
-            <field name="search_view_id" ref="view_student_faculty_search"/>
+            <field name="search_view_id" ref="view_student_affairs_search"/>
             <field name="domain">[]</field>
             <field name="context">{}</field>
         </record>

@@ -9,6 +9,7 @@ class StudentRegistration(models.Model):
     _inherit = ["mail.thread"]
 
     name = fields.Char('Name', readonly=True, default='New')
+    sample_course = fields.Char('Course', readonly=True, default='New')
     student_id = fields.Many2one('student.student', 'Student', required=True,
                                  track_visibility='onchange')
     course_id = fields.Many2one('student.course', 'Course', required=True,
@@ -63,6 +64,13 @@ class StudentRegistration(models.Model):
     @api.multi
     def action_submitted(self):
         self.state = 'submitted'
+
+    @api.onchange('student_id')
+    def onchange_student(self, context=None):
+        for record in self:
+            record.sample_course = record.student_id.student_course_id.name
+            record.name = record.student_id.name
+            record.course_id = record.student_id.student_course_id
 
     @api.model
     def create(self, vals):

@@ -21,6 +21,7 @@
 		'views/subject_view.xml',
 		'views/category_view.xml',
 		'views/faculty_view.xml',
+		'views/academic_affairs_view.xml',
 		'views/aims_tggs_template.xml',
 		'menu/tggs_menu.xml',
 	],

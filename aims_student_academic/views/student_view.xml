@@ -22,7 +22,9 @@
                                 <div class="oe_kanban_details">
                                     <h4>
                                         <a type="open">
-                                            <field name="name"/>
+                                            <t t-if="record.middle_name.raw_value">
+                                                <field name="first_name"/>
+                                            </t>
                                             <t t-if="record.middle_name.raw_value">
                                                 <field name="middle_name"/>
                                             </t>
@@ -40,9 +42,6 @@
                                         </li>
                                         <li t-if="record.student_department.raw_value">
                                             <field name="student_department"/>
-                                        </li>
-                                        <li t-if="record.student_batch_id.raw_value">
-                                            <field name="student_batch_id"/>
                                         </li>
                                         <li t-if="record.email.raw_value">
                                             <a t-attf-href="mailto:#{record.email.value}">
@@ -65,12 +64,11 @@
             <field name="arch" type="xml">
                 <tree string="Student">
                     <field name="title"/>
-                    <field name="name"/>
+                    <field name="first_name"/>
                     <field name="middle_name"/>
                     <field name="last_name"/>
                     <field name="student_no"/>
                     <field name="student_course_id"/>
-                    <field name="student_batch_id"/>
                     <field name="student_department"/>
                     <field name="course_detail_ids">
                         <tree string="Course Details">
@@ -105,7 +103,7 @@
                                 <table>
                                     <tr>
                                         <td style="padding-right:10px;">
-                                            <field name="name" required="1" placeholder="First Name"/>
+                                            <field name="first_name" required="1" placeholder="First Name"/>
                                         </td>
                                         <td style="padding-right:10px;">
                                             <field name="middle_name" placeholder="Middle Name"/>
@@ -121,9 +119,8 @@
                             <page name="personal_information"
                                   string="Student Information">
                                 <group string = "Basic Information" col="4" colspan="4" name="personal_detail">
-                                    <field name="student_no"/>
+                                    <field name="student_no" required="1"/>
                                     <field name="category_id" required="1"/>
-                                    <!--<field name="scholarship_id" required="1"/>-->
                                     <field name="nationality" required="1"/>
                                     <field name="nat_check" invisible="1" />
                                     <field name="gender" required="1"/>
@@ -177,6 +174,7 @@
                                     <group colspan="3">
                                         <field name="student_no"/>
                                         <field name="student_course_id"/>
+                                        <field name="student_department"/>
                                     </group>
                                 </group>
                                 <group>

@@ -27,7 +27,8 @@ class StudentStudent(models.Model):
 
     # BASIC STUDENT INFORMATION
     student_no = fields.Char('Student Number', size=13, required=True)
-    middle_name = fields.Char('Middle Name', size=128)
+    first_name = fields.Char('First Name', size=128)
+    middle_name = fields.Char('Middle Name', size=128, required=True)
     last_name = fields.Char('Last Name', size=128)
     birth_date = fields.Date('Birth Date')
     country_birth = fields.Many2one('res.country','Country of Birth')
@@ -62,7 +63,7 @@ class StudentStudent(models.Model):
     email = fields.Char('Email')
     emergency_contact = fields.Many2one('res.partner', 'Emergency Contact')
 
-    # get one specific class for passport info
+    # get one specific class for passport info ==> get this from Ather
     passport_number = fields.Char(string='Passport Number', track_visibility='always')
     passport_issue = fields.Date('Passport Issuance Date')
     passport_expire = fields.Date('Passport Expiry Date')
@@ -127,6 +128,13 @@ class StudentStudent(models.Model):
         else:
             self.nat_check = False
 
+    @api.multi
+    @api.onchange('last_name')
+    def res_partner_name(self):
+        for record in self:
+            if record.last_name:
+                record.name = str(record.first_name) + ' ' + str(record.middle_name[0]) + ' ' + str(record.last_name)
+
     # Student Number Check
     @api.multi
     @api.constrains('student_no')
@@ -144,18 +152,12 @@ class StudentStudent(models.Model):
                     checkSum += int(listData[index]) * (13 - index)  # Combine the index values ​​with each index list * (13 - index) and combine them with checkSum.
                     index += 1  # Increase the index by 1
                 digit13 = checkSum % 11  # checkSum divided by 11 take the numerator
-                if digit13 == 0:  # If fractional = 0
-                    digit13 = 1  # , the 13th digit value is 1
-                elif digit13 == 1:  # ifcf = 1
-                    digit13 = 0  # the 13th digit value is 0
-                else:
-                    digit13 = 11 - digit13  # If the numerator is not anything, take 11 - digit13
                 if digit13 != int(listData[12]):  # If the 13th digit value is equal to the 13th digit value entered, returns True.
                     self.nat_check = False
 
     @api.multi
     @api.constrains('birth_date')
-    def _check_birth_date(self):
+    def check_birth_date(self):
         for record in self:
             if record.birth_date > fields.Date.today():
                 raise ValidationError(_(
@@ -163,13 +165,20 @@ class StudentStudent(models.Model):
 
     # Course Test Relationship <=> is course equivalent to parent
     @api.multi
-    @api.constrains('course_detail_ids')
-    def _check_course_details(self):
-        if self.course_detail_ids:
-            for record in self.course_detail_ids:
-                list2 = list(record.course_id)
-            #if list2 != self.student_course_id:
+    @api.onchange('student_course_id')
+    def check_course_details(self):
+        for record in self:
+            record.student_department = record.student_course_id.parent_id
 
+    @api.multi
+    @api.constrains('student_course_id')
+    def constrain_course_details(self):
+        for record in self:
+            if record.course_detail_ids:
+                if record.course_detail_ids.course_id != record.student_course_id:
+                    raise ValidationError(_(
+                        "[ERROR] Student Course enlisted in admissions should be "
+                        "same as student course input previously!"))
 
     @api.model
     def get_import_templates(self):
@@ -186,9 +195,9 @@ class StudentStudent(models.Model):
         for record in self:
             if not record.user_id:
                 user_id = users_res.create({
-                    'name': record.name,
+                    'name': str(record.first_name) + ' ' + (str(record.middle_name[0]) or '') + ' ' + str(record.last_name),
                     'partner_id': record.partner_id.id,
-                    'login': record.email,
+                    'login': record.email or (record.first_name + ' ' + record.last_name),
                     'groups_id': user_group,
                 })
                 record.user_id = user_id
