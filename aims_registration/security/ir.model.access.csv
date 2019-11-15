@@ -1,4 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_registration_new,access.registration.new,model_registration_new,base.group_user,1,1,1,0
-access_student_registration,access.student.registration,model_student_registration,base.group_user,1,1,1,0
-access_student_student,access.student.student,model_student_student,base.group_user,1,1,1,0
+access_student_registration_back_office,access_student_registration_back_office,model_student_registration,aims_student_academic.group_student_back_office,1,1,1,1
+access_student_registration_faculty,access_student_registration_faculty,model_student_registration,aims_student_academic.group_student_faculty,1,0,0,0
+access_student_registration_faculty,access_student_registration_faculty,model_student_registration,aims_student_academic.group_student_student,1,1,1,0

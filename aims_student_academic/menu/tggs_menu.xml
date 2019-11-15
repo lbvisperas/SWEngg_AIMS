@@ -64,12 +64,19 @@
                   action="act_open_student_faculty_view"
                   groups="base.group_user"/>
 
+        <menuitem id="menu_affairs_affairs_main"
+                  name="Academic Affairs"
+                  sequence="40"
+                  parent="menu_op_academic_academic_main"
+                  action="act_open_student_affairs_view"
+                  groups="base.group_user"/>
+
 
         <!-- TRANSCRIPT -->
         <menuitem id="menu_grades_grades_main"
                   name="Transcript"
                   sequence="60"
-                  parent="menu_op_academic_academic_main"
+                  parent="menu_school_school_root"
                   groups="base.group_user"/>
 
         <!-- REGISTRATION -->

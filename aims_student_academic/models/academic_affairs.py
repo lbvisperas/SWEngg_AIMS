@@ -4,8 +4,8 @@ from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
 
-class StudentFaculty(models.Model):
-    _name = "student.faculty"
+class StudentAffairs(models.Model):
+    _name = "student.affairs"
     _description = "TGGS Faculty"
     _inherit = "mail.thread"
     _inherits = {"res.partner": "partner_id"}
@@ -15,31 +15,22 @@ class StudentFaculty(models.Model):
     first_name = fields.Char('First Name', size=128)
     middle_name = fields.Char('Middle Name', size=128)
     last_name = fields.Char('Last Name', size=128, required=True)
-    birth_date = fields.Date('Birth Date', required=True)
+    affairs_role = fields.Selection([
+        ('overall coordinator', 'Overall Coordinator'),
+        ('thai coordinate', 'Thai Coordinator'),
+        ('international coordinator', 'International Coordinator'),
+        ('faculty coordinator', 'Faculty Coordinator'),
+    ], 'Faculty Role')
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female')
     ], 'Gender', required=True)
-    nationality = fields.Many2one('res.country', 'Nationality')
-    emergency_contact = fields.Many2one(
-        'res.partner', 'Emergency Contact')
-    login = fields.Char(
-        'Login', related='partner_id.user_id.login', readonly=1)
+    birth_date = fields.Date('Birth Date', required=True)
     last_login = fields.Datetime('Latest Connection', readonly=1,
                                  related='partner_id.user_id.login_date')
-    emp_id = fields.Many2one('hr.employee', 'TGGS Faculty User')
-
-    # Course and Department Based
-    faculty_course_id = fields.Many2one('student.course', 'Course')
-    faculty_department = fields.Many2one('student.course', 'Department')
-    faculty_role = fields.Selection([
-        ('coordinator', 'Coordinator'),
-        ('lecturer', 'Lecturer'),
-        ('lecturer and researcher', 'Lecturer and Researcher'),
-        ('research assistant', 'Research Assistant'),
-    ], 'Faculty Role')
-    faculty_subject_ids = fields.Many2many('student.subject', string='Subject(s)',
-                                           track_visibility='onchange')
+    emp_id = fields.Many2one('hr.employee', 'TGGS Academic Affairs User')
+    emergency_contact = fields.Many2one(
+        'res.partner', 'Emergency Contact')
 
     @api.multi
     @api.constrains('birth_date')
@@ -62,7 +53,6 @@ class StudentFaculty(models.Model):
             vals = {
                 'name': record.name + ' ' + (record.middle_name or '') +
                 ' ' + record.last_name,
-                'country_id': record.nationality.id,
                 'gender': record.gender,
                 'address_home_id': record.partner_id.id
             }
@@ -71,8 +61,8 @@ class StudentFaculty(models.Model):
             record.partner_id.write({'supplier': True, 'employee': True})
 
     @api.multi
-    def create_faculty_user(self):
-        user_group = self.env.ref("aims_student_academic.group_student_faculty") or False
+    def create_academic_user(self):
+        user_group = self.env.ref("aims_student_academic.group_student_back_office") or False
         users_res = self.env['res.users']
         for record in self:
             if not record.user_id:
@@ -84,6 +74,7 @@ class StudentFaculty(models.Model):
                     'groups_id': user_group,
                 })
                 record.user_id = user_id
+
     #@api.model
     #def get_import_templates(self):
      #   return [{
