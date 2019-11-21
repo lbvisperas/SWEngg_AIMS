@@ -1,38 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <record id="view_student_transcript_tree" model="ir.ui.view">
+    <record id="view_grades_tree" model="ir.ui.view">
         <field name="name">student.grades.tree</field>
         <field name="model">student.grades</field>
         <field name="priority" eval="8"/>
         <field name="arch" type="xml">
-            <tree string="Transcript">
+            <tree string="Grades">
                 <field name="student_id"/>
                 <field name="full_name"/>
                 <field name="program"/>
                 <field name="student_course_id"/>
                 <field name="education_level"/>
-                <field name="gpa"/>
+                <field name="student_grades_id" widget="many2many_tags"/>
             </tree>
         </field>
     </record>
 
-    <record id="view_student_transcript_form" model="ir.ui.view">
+    <record id="view_grades_form" model="ir.ui.view">
         <field name="name">student.grades.form</field>
         <field name="model">student.grades</field>
         <field name="priority" eval="8"/>
         <field name="arch" type="xml">
-            <form string="Transcript" create="false" edit="false">
-                <header>
-                    <button string="Request" name="action_submitted"
-                            groups="aims_transcript.group_student"
-                            type="object" class="oe_highlight"
-                            attrs="{'invisible': [('state', '!=', 'draft')] }"/>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,request"/>
-                </header>
+            <form string="Grades">
                 <sheet>
                     <group name="main" string="Student Information">
-                        <field name="student_no" on_change="onchange_student(student_no)" readonly="1"/>
+                        <field name="student_no" on_change="onchange_student(student_no)"/>
                         <field name="student_id" readonly="1" force_save="1"/>
                         <field name="full_name" readonly="1" force_save="1"/>
                         <field name="first_name" invisible="1"/>
@@ -45,49 +38,50 @@
                         <field name="program" readonly="1" force_save="1"/>
                         <field name="student_course_id" readonly="1" force_save="1"/>
                         <field name="education_level" readonly="1" force_save="1"/>
+                        <field name="gpa" readonly="1" force_save="1"/>
                     </group>
-                    <group string="Student Transcript" name="grades">
-                        <field name="student_grades_id" nolabel="1" readonly="1"/>
+                    <group string="Student Grades" name="grades">
+                        <field name="student_grades_id" nolabel="1" widget='one2many' on_change="calculate_gpa"/>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
 
-    <record id="view_student_transcript_search" model="ir.ui.view">
+    <record id="view_grades_search" model="ir.ui.view">
         <field name="name">student.grades.search</field>
         <field name="model">student.grades</field>
         <field name="priority" eval="8"/>
         <field name="arch" type="xml">
-            <search string="Transcript">
+            <search string="Grades">
                 <field name="student_id"/>
             </search>
         </field>
     </record>
 
-    <record model="ir.actions.act_window" id="act_open_student_transcript_view">
-        <field name="name">Transcript</field>
+    <record model="ir.actions.act_window" id="act_open_grades_view">
+        <field name="name">Grades</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">student.grades</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="view_student_transcript_search"/>
+        <field name="search_view_id" ref="view_grades_search"/>
         <field name="domain">[]</field>
         <field name="context">{}</field>
     </record>
 
-    <record model="ir.actions.act_window.view" id="act_open_student_transcript_view_form">
-        <field name="act_window_id" ref="act_open_student_transcript_view"/>
+    <record model="ir.actions.act_window.view" id="act_open_grades_view_form">
+        <field name="act_window_id" ref="act_open_grades_view"/>
         <field name="sequence" eval="20"/>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="view_student_transcript_form"/>
+        <field name="view_id" ref="view_grades_form"/>
     </record>
 
-    <record model="ir.actions.act_window.view" id="act_open_student_transcript_view_tree">
-            <field name="act_window_id" ref="act_open_student_transcript_view"/>
+    <record model="ir.actions.act_window.view" id="act_open_grades_view_tree">
+            <field name="act_window_id" ref="act_open_grades_view"/>
             <field name="sequence" eval="10"/>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="view_student_transcript_tree"/>
+            <field name="view_id" ref="view_grades_tree"/>
         </record>
 
 </odoo>
