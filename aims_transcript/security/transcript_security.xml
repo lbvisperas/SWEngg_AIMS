@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="group_student" model="res.groups">
+            <field name="name">Student Group </field>
+            <field name="category_id" ref="aims_student_academic.module_category_tggs"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_academic_affair" model="res.groups">
+            <field name="name">Academic Affair Group</field>
+            <field name="category_id" ref="aims_student_academic.module_category_tggs"/>
+<!--            <field name="implied_ids" eval="[(4, ref('group_student'))]"/>-->
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+<!--        <record id="view_student_record_rule" model="ir.rule">-->
+<!--            <field name="name">My Transcript</field>-->
+<!--            <field name="model_id" ref="model_student_grades"/>-->
+<!--            <field name="domain_force">[('student_id', '=', user.id)]</field>-->
+<!--            <field name="implied_ids" eval="[(4, ref('group_student_user'))]"/>-->
+<!--        </record>-->
+
+    </data>
+</odoo>
