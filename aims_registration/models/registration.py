@@ -80,3 +80,4 @@ class StudentRegistration(models.Model):
                     if subject.subject_type == 'compulsory':
                         subject_ids.append(subject.id)
             record.compulsory_subject_ids = [(6, 0, subject_ids)]
+
