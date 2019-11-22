@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_grades_tree" model="ir.ui.view">
+        <field name="name">student.grades.tree</field>
+        <field name="model">student.grades</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <tree string="Grades">
+                <field name="student_id"/>
+                <field name="full_name"/>
+                <field name="program"/>
+                <field name="student_course_id"/>
+                <field name="education_level"/>
+                <field name="student_grades_id" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_grades_form" model="ir.ui.view">
+        <field name="name">student.grades.form</field>
+        <field name="model">student.grades</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <form string="Grades">
+                <sheet>
+                    <group name="main" string="Student Information">
+                        <field name="student_no" on_change="onchange_student(student_no)"/>
+                        <field name="student_id" readonly="1" force_save="1"/>
+                        <field name="full_name" readonly="1" force_save="1"/>
+                        <field name="first_name" invisible="1"/>
+                        <field name="middle_name" invisible="1"/>
+                        <field name="last_name" invisible="1" />
+                    </group>
+                    <group string="Student Course">
+                        <field name="study_school" readonly="1" force_save="1"/>
+                        <field name="study_field" readonly="1" force_save="1"/>
+                        <field name="program" readonly="1" force_save="1"/>
+                        <field name="student_course_id" readonly="1" force_save="1"/>
+                        <field name="education_level" readonly="1" force_save="1"/>
+                        <field name="gpa" readonly="1" force_save="1"/>
+                    </group>
+                    <group string="Student Grades" name="grades">
+                        <field name="student_grades_id" nolabel="1" widget='one2many' on_change="calculate_gpa"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_grades_search" model="ir.ui.view">
+        <field name="name">student.grades.search</field>
+        <field name="model">student.grades</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <search string="Grades">
+                <field name="student_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="act_open_grades_view">
+        <field name="name">Grades</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">student.grades</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_grades_search"/>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="act_open_grades_view_form">
+        <field name="act_window_id" ref="act_open_grades_view"/>
+        <field name="sequence" eval="20"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_grades_form"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="act_open_grades_view_tree">
+            <field name="act_window_id" ref="act_open_grades_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_grades_tree"/>
+        </record>
+
+</odoo>
