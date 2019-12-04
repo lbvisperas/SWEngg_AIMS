@@ -13,6 +13,7 @@
         'security/transcript_security.xml',
         'security/ir.model.access.csv',
         'reports/report_menu.xml',
+        'reports/report_transcript.xml',
         'views/transcript_view.xml',
         'views/sign.xml',
         'views/grades_view.xml',
