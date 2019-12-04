@@ -74,6 +74,10 @@
                   action="act_open_student_affairs_view"
                   groups="group_student_back_office,group_student_back_office_admin"/>
 
+        <menuitem id="menu_op_academic_grades"
+                  name="Grades Management"
+                  parent="menu_op_academic_academic_main"
+                  sequence="30"/>
 
         <!-- TEST -->
         <menuitem id="menu_test_test_main"
@@ -112,5 +116,7 @@
                   name="VISA"
                   parent="menu_school_school_root"
                   sequence="60"/>
+
+
     </data>
 </odoo>

@@ -18,7 +18,7 @@ class StudentBatch(models.Model):
     ], 'Semester', default='First_Semester')
     start_date = fields.Date('Start Date', required=True, default=fields.Date.today())
     end_date = fields.Date('End Date', required=True)
-    course_id = fields.Many2one('student.course', 'Course', required=True, default='Software Systems Engineering')
+    course_id = fields.Many2one('student.course', 'Course', required=True)
 
     _sql_constraints = [(
         'unique_name',

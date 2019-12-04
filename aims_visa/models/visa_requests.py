@@ -6,9 +6,20 @@ class VisaRequests(models.Model):
       _name = 'visa.requests'
 
       first_name = fields.Char("First Name")
-      student_id=fields.Integer()
-      reason_for_visit=fields.Text("Reason Visit")
-      period_of_stay= fields.Integer("Period")
+      middle_name = fields.Char("Middle Name")
+      last_name = fields.Char("Last Name")
+      nationality = fields.Char("Nationality")
+      country = fields.Char("Country")
+      student_id = fields.Integer()
+      level_of_study = fields.Selection([
+            ('masters', 'Masters'),
+            ('doctoral', 'Doctoral'),
+      ], string='Study Level', required=True)
+      major = fields.Char("Major")
+      passport_num = fields.Char("Passport Number")
+      passport_valid_until = fields.Date("Valid Until")
+      reason_for_visit = fields.Text("Reason Visit")
+      period_of_stay = fields.Integer("Period")
 
 #     name = fields.Char()
 #     value = fields.Integer()
