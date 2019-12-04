@@ -34,16 +34,23 @@
                   action="act_open_student_course_view"
                   groups="base.group_user"/>
 
+        <menuitem id="menu_subject_subject_main"
+                  name="Subjects"
+                  sequence="30"
+                  parent="menu_op_academic_academic_course"
+                  action="act_open_student_subject_view"
+                  groups="group_student_faculty,group_student_back_office_admin"/>
+
         <menuitem id="menu_batch_batch_main"
                   name="Batches"
                   parent="menu_op_academic_academic_course"
-                  sequence="30"
+                  sequence="40"
                   action="act_open_student_batch_view"
                   groups="base.group_user"/>
 
         <menuitem id="menu_category_category_main"
                   name="Programs"
-                  sequence="40"
+                  sequence="50"
                   parent="menu_op_academic_academic_course"
                   action="act_open_student_category_view"
                   groups="base.group_user"/>
