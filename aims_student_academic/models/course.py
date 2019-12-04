@@ -6,7 +6,7 @@ class StudentCourse(models.Model):
     _description = "student course"
 
     name = fields.Char('Name', required=True)
-    code = fields.Char('Code', size=16, required=True)
+    code = fields.Char('Code (e.g. SSE, EPE', size=4, required=True)
     parent_id = fields.Many2one('student.course', 'Department')
     evaluation_type = fields.Selection(
         [('normal', 'Normal'), ('GPA', 'GPA'),

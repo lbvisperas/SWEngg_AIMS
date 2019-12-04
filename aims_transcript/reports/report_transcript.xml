@@ -22,10 +22,10 @@
                             <div style="font-size:20px">
                                   <p><b>Subject: Request for   ◯ Student Certification  ● Unofficial TGGS Transcript <br/>
                                   To: TGGS Academic Affairs</b><br/>
-                                      My name is <t t-esc="doc.full_name"></t>. Student ID: <t t-esc="doc.student_no.student_no"></t><br/>
+                                      My name is <t t-esc="doc.full_name"></t>. Student ID: <t t-esc="doc.student_id"></t><br/>
                                       I am studying ◯ Master ◯ Doctoral program in ..................................................................<br/>
                                       Home address ........................................................................................... <br/>
-                                      Mobile number: <t t-esc="doc.student_no.student_no"></t>.  E-mail: .....................................<br/>
+                                      Mobile number: <t t-esc="doc.student_no.mobile"></t>.  E-mail: <t t-esc="doc.student_no.email"></t><br/>
                                       would like to request for the student certification/ the unofficial TGGS transcript for .........................................................................................<br/>
                                       Purpose of the student certification/ the unofficial TGGS transcript ....................................................................................................<br/>
                                       Please consider,

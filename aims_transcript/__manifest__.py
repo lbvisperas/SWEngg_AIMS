@@ -11,10 +11,10 @@
     'depends': ['base', 'aims_student_academic'],
     'data': [
         'security/transcript_security.xml',
-        'reports/report_menu.xml',
         'security/ir.model.access.csv',
-        'reports/report_transcript.xml',
+        'reports/report_menu.xml',
         'views/transcript_view.xml',
+        'views/sign.xml',
         'views/grades_view.xml',
         'views/student_grades_view.xml',
         'menu/transcript_menu.xml',

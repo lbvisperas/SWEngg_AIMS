@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from . import transcript
 from . import grades
-from . import student_grades
+from . import sign
+from . import fill_pdf

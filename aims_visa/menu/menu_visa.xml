@@ -8,13 +8,13 @@
                   sequence="10"
                   groups="base.group_user"/>
         -->
-        <menuitem id="visa.menu_1_list"
+        <menuitem id="visa_menu_1_list"
                   name="Student Visa Form"
                   parent="aims_student_academic.menu_op_visa_visa_main"
                   action="action_visa"
                   groups="base.group_user"  />
 
-        <menuitem id="visa.request"
+        <menuitem id="visa_request"
                   name="Visa Extension Request"
                   parent="aims_student_academic.menu_op_visa_visa_main"
                   action="action_visa_request"

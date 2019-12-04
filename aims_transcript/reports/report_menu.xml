@@ -3,9 +3,9 @@
     <data>
 
         <report
-            id="certificate-transcript-pdf"
-            model="student.transcript"
-            string="Certificate-Transcript(40-TG-93)"
+            id="transcript-pdf"
+            model="student.grades"
+            string="Transcript"
             report_type="qweb-pdf"
             name="aims_transcript.report_transcript"
             file="aims_transcript.report_transcript"

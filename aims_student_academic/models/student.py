@@ -133,7 +133,7 @@ class StudentStudent(models.Model):
     def res_partner_name(self):
         for record in self:
             if record.last_name:
-                record.name = str(record.first_name) + ' ' + str(record.middle_name[0]) + ' ' + str(record.last_name)
+                record.name = str(record.first_name) + ' ' + (str(record.middle_name[0]) or '') + ' ' + str(record.last_name)
 
     # Student Number Check
     @api.multi
@@ -171,7 +171,14 @@ class StudentStudent(models.Model):
             record.student_department = record.student_course_id.parent_id
 
     @api.multi
-    @api.constrains('student_course_id')
+    @api.onchange('student_course_id')
+    def check_course_details(self):
+        if self.course_detail_ids:
+                self.course_detail_ids.course_id = self.student_course_id
+                self.course_detail_ids.department = self.student_department
+
+    @api.multi
+    @api.constrains('course_detail_ids')
     def constrain_course_details(self):
         for record in self:
             if record.course_detail_ids:

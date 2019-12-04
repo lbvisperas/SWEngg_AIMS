@@ -4,7 +4,7 @@
     <data>
 
         <!-- form view of student visa info-->
-        <record id="visa.list" model="ir.ui.view">
+        <record id="visa_list" model="ir.ui.view">
             <field name="name">VisaInformation</field>
             <field name="model">visa.visa</field>
             <field name="arch" type="xml">
@@ -46,7 +46,7 @@
             </field>
         </record>
 
-   <record id="visa.tree" model="ir.ui.view">
+   <record id="visa_tree" model="ir.ui.view">
             <field name="name">VisaInformation</field>
             <field name="model">visa.visa</field>
             <field name="arch" type="xml">
