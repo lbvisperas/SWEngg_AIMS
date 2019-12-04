@@ -1,207 +1,320 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <odoo>
-
-
     <data>
 
         <!-- form view of student visa info-->
         <record id="visa.list" model="ir.ui.view">
-
             <field name="name">VisaInformation</field>
             <field name="model">visa.visa</field>
             <field name="arch" type="xml">
               <form string="visa">
                   <sheet>
                         <div>
-                          <h2>
+                            <h2>
                              <table>
-                                    <tr>
+                                 <tr>
                                       <td>
                                           <field name="first_name" placeholder="First Name" required="1"/>
-
-                                        </td>
-                                        <td>
-
-                                            <field name="middle_name" placeholder="Middle Name" required="0"/>
-
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-
-                                            <field name="last_name" placeholder="Last Name" required="1"/>
-
-                                        </td>
-
-                                    </tr>
+                                      </td>
+                                      <td>
+                                          <field name="middle_name" placeholder="Middle Name" required="0"/>
+                                      </td>
+                                 </tr>
+                                 <tr>
+                                     <td>
+                                         <field name="last_name" placeholder="Last Name" required="1"/>
+                                     </td>
+                                 </tr>
                                 </table>
                             </h2>
                         </div>
                     <group>
-
+                        <group>
                             <field name="student_id"/>
-
                             <field name="nationality" required="1"/>
-
                             <field name="passport_num" required="1"/>
-
+                         </group>
+                        <group>
                             <field name="visa_num"/>
-
                             <field name="visa_issue_date" required="1"/>
-
                             <field name="visa_expiry_date" required="1"/>
-
                         </group>
-
-                    </sheet>
-
-                    <!-- <field name="value2"/> -->
-
-
+                    </group>
+                  </sheet>
                 </form>
-
             </field>
-
         </record>
 
-
-
-        <record id="visa.tree" model="ir.ui.view">
+   <record id="visa.tree" model="ir.ui.view">
             <field name="name">VisaInformation</field>
             <field name="model">visa.visa</field>
             <field name="arch" type="xml">
                  <tree string="visa">
-                    <field name="first_name"/>
-                    <field name="last_name"/>
-                    <field name="student_id"/>
-                    <field name="nationality"/>
-
-                    <field name="passport_num"/>
-
-                    <field name="visa_num"/>
-
-                    <field name="visa_issue_date"/>
-
-                    <field name="visa_expiry_date"/>
-
-                </tree>
-
+                     <field name="first_name"/>
+                     <field name="last_name"/>
+                     <field name="student_id"/>
+                     <field name="nationality"/>
+                     <field name="passport_num"/>
+                     <field name="visa_num"/>
+                     <field name="visa_issue_date"/>
+                     <field name="visa_expiry_date"/>
+                 </tree>
             </field>
-
-        </record>
+  </record>
 
         <!-- visa requests form and view -->
-
-
-
         <record id="visa_request_form" model="ir.ui.view">
-
-            <field name="name">VisaExtendRequest</field>
-
+            <field name="name">VisaExtensionRequest</field>
             <field name="model">visa.requests</field>
-
-
-
             <field name="arch" type="xml">
-
-
-
                 <form string="visarequest">
-
-
-
                     <sheet>
-
-
-
+                       <div>
+                            <h2>
+                             <table>
+                                 <tr>
+                                      <td>
+                                          <field name="first_name" placeholder="First Name" required="1"/>
+                                      </td>
+                                      <td>
+                                          <field name="middle_name" placeholder="Middle Name" required="0"/>
+                                      </td>
+                                 </tr>
+                                 <tr>
+                                     <td>
+                                         <field name="last_name" placeholder="Last Name" required="1"/>
+                                     </td>
+                                 </tr>
+                                </table>
+                            </h2>
+                        </div>
                         <group>
-
-                            <field name="first_name"/>
-
-                            <field name="student_id"/>
-
-                            <field name="reason_for_visit"/>
-
-                            <field name="period_of_stay"/>
-
+                            <group>
+                                <field name="nationality" required="1"/>
+                                <field name="country" required="1"/>
+                                <field name="student_id" required="1"/>
+                                <field name="level_of_study" required="1"/>
+                                <field name="major" required="1"/>
+                            </group>
+                            <group>
+                                <field name="passport_num" required="1"/>
+                                <field name="passport_valid_until" required="1"/>
+                                <field name="period_of_stay" required="1"/>
+                                <field name="reason_for_visit" required="1"/>
+                            </group>
                         </group>
-
                     </sheet>
-
                 </form>
-
             </field>
-
         </record>
+
+        <!-- visa requests for internship abroad form -->
+        <record id="visa_request_internship" model="ir.ui.view">
+            <field name="name">VisaRequestInternship</field>
+            <field name="model">visa.internship</field>
+            <field name="arch" type="xml">
+                <form string="visarequestinternship">
+                    <sheet>
+                        <div>
+                            <h2>
+                             <table>
+                                 <tr>
+                                      <td>
+                                          <field name="first_name" placeholder="First Name" required="1"/>
+                                      </td>
+                                      <td>
+                                          <field name="middle_name" placeholder="Middle Name" required="0"/>
+                                      </td>
+                                 </tr>
+                                 <tr>
+                                     <td>
+                                         <field name="last_name" placeholder="Last Name" required="1"/>
+                                     </td>
+                                 </tr>
+                                </table>
+                            </h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="student_id"/>
+                                <field name="level_of_study"/>
+                                <field name="major"/>
+                                <field name="home_address"/>
+                            </group>
+                            <group>
+                                <field name="company_name"/>
+                                <field name="company_address_country"/>
+                                <field name="internship_duration_start"/>
+                                <field name="internship_duration_end"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="visa_request_conference" model="ir.ui.view">
+            <field name="name">VisaRequestConference</field>
+            <field name="model">visa.conference</field>
+            <field name="arch" type="xml">
+                <form string="visarequestconference">
+                    <sheet>
+                        <div>
+                            <h2>
+                             <table>
+                                 <tr>
+                                      <td>
+                                          <field name="first_name" placeholder="First Name" required="1"/>
+                                      </td>
+                                      <td>
+                                          <field name="middle_name" placeholder="Middle Name" required="0"/>
+                                      </td>
+                                 </tr>
+                                 <tr>
+                                     <td>
+                                         <field name="last_name" placeholder="Last Name" required="1"/>
+                                     </td>
+                                 </tr>
+                                </table>
+                            </h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="student_id"/>
+                                <field name="level_of_study"/>
+                                <field name="major"/>
+                                <field name="home_address"/>
+                                <field name="publication_entitled"/>
+                            </group>
+                            <group>
+                                <field name="conference_name" required="1"/>
+                                <field name="address_country" required="1"/>
+                                <field name="conference_date_start" required="1"/>
+                                <field name="conference_date_end" required="1"/>
+                                <field name="tggs_advisor_name" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- tree view of visa requests-->
+
+         <record id="visa_requests_tree" model="ir.ui.view">
+            <field name="name">VisaExtensionRequest</field>
+            <field name="model">visa.requests</field>
+            <field name="arch" type="xml">
+                 <tree string="visarequest">
+                     <field name="first_name"/>
+                     <field name="last_name"/>
+                     <field name="nationality"/>
+                     <field name="country"/>
+                     <field name="student_id"/>
+                     <field name="level_of_study"/>
+                     <field name="major"/>
+                     <field name="passport_num"/>
+                     <field name="passport_valid_until"/>
+                     <field name="period_of_stay"/>
+                     <field name="reason_for_visit"/>
+                 </tree>
+            </field>
+  </record>
+
+        <!-- tree view of visa for internship -->
+
+         <record id="visa_internship_tree" model="ir.ui.view">
+            <field name="name">VisaRequestInternship</field>
+            <field name="model">visa.internship</field>
+            <field name="arch" type="xml">
+                 <tree string="visarequestinternship">
+                     <field name="first_name"/>
+                     <field name="last_name"/>
+                     <field name="student_id"/>
+                     <field name="level_of_study"/>
+                     <field name="major"/>
+                     <field name="home_address"/>
+                     <field name="company_name"/>
+                     <field name="company_address_country"/>
+                     <field name="internship_duration_start"/>
+                     <field name="internship_duration_end"/>
+                 </tree>
+            </field>
+  </record>
+
+        <!-- tree view of visa for conference -->
+
+         <record id="visa_conference_tree" model="ir.ui.view">
+            <field name="name">VisaRequestConference</field>
+            <field name="model">visa.conference</field>
+            <field name="arch" type="xml">
+                 <tree string="visarequestconference">
+                     <field name="first_name"/>
+                     <field name="last_name"/>
+                     <field name="student_id"/>
+                     <field name="student_id"/>
+                     <field name="level_of_study"/>
+                     <field name="major"/>
+                     <field name="home_address"/>
+                     <field name="publication_entitled"/>
+                     <field name="conference_name"/>
+                     <field name="address_country"/>
+                     <field name="conference_date_start"/>
+                     <field name="conference_date_end"/>
+                     <field name="tggs_advisor_name"/>
+                 </tree>
+            </field>
+  </record>
+
+
+
 
         <!-- actions opening views on models -->
+    <record id="action_visa" model="ir.actions.act_window">
+        <field name="name">Visa Form</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">visa.visa</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
 
-
-
-        <record id="action_visa" model="ir.actions.act_window">
-
-            <field name="name">visa</field>
-
-            <field name="type">ir.actions.act_window</field>
-
-            <field name="res_model">visa.visa</field>
-
-            <field name="view_type">form</field>
-
-            <field name="view_mode">tree,form</field>
-
-        </record>
+    </record>
 
         <!-- actions for visa requests -->
+    <record id="action_visa_request" model="ir.actions.act_window">
+        <field name="name">Visa Extension Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">visa.requests</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
+         <!-- actions for visa internship requests -->
+    <record id="action_visa_internship" model="ir.actions.act_window">
+        <field name="name">For Internship Abroad</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">visa.internship</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
-
-        <record id="action_visa_request" model="ir.actions.act_window">
-
-            <field name="name">Visa Extension Request</field>
-
-            <field name="type">ir.actions.act_window</field>
-
-            <field name="res_model">visa.requests</field>
-
-            <field name="view_type">form</field>
-
-            <field name="view_mode">form</field>
-
-        </record>
-
+    <!-- actions for visa conference requests -->
+    <record id="action_visa_conference" model="ir.actions.act_window">
+        <field name="name">For Conference Abroad</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">visa.conference</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+        <!--
         <menuitem id="visa.menu_root" name="Visa"/>
-
-        <!-- menu categories -->
-
-
-        <menuitem id="visa.menu_1" name="Visa/Immigration" parent="visa.menu_root"/>
-
-        <menuitem id="visa.menu_2" name="Menu 2" parent="visa.menu_root"/>
-
-        <!-- actions -->
-
-
+        <menuitem id="visa.menu_1" name="Visa/Immigration" />
         <menuitem id="visa.menu_1_list" name="Student Visa Form" parent="visa.menu_1" action="action_visa"/>
-
-        <!-- -->
-
-
         <menuitem id="visa.request" name="Visa Extension Request" parent="visa.menu_1" action="action_visa_request"/>
-
         <menuitem id="student_certification_visa" name="Student Certification for Visa" parent="visa.menu_1"/>
-
-        <menuitem id="student_certification_visa_internship" name="For Internship Abroad"
-                  parent="student_certification_visa" action="action_visa_request"/>
-
-        <menuitem id="student_certification_visa_conference" name="For International Conference"
-                  parent="student_certification_visa" action="action_visa_request"/>
-
-        <!--<menuitem name="View Student Visa Information" id="visa.list_visa_info" parent="visa.menu_1" action="visa.viewrecords"></menuitem> -->
-
-
-    </data>
+        <menuitem id="student_visa_internship" name="For Internship" parent="student_certification_visa" action="action_visa_internship"/>
+        <menuitem id="student_visa_conference" name="For Conference" parent="student_certification_visa" action="action_visa_conference"/>
+        -->
+ </data>
 
 </odoo>

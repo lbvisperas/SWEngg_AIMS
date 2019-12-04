@@ -2,24 +2,23 @@
 
 from odoo import models, fields, api
 
-class VisaRequests(models.Model):
-      _name = 'visa.requests'
+class VisaInternship(models.Model):
+      _name = 'visa.internship'
 
       first_name = fields.Char("First Name")
       middle_name = fields.Char("Middle Name")
       last_name = fields.Char("Last Name")
-      nationality = fields.Char("Nationality")
-      country = fields.Char("Country")
       student_id = fields.Integer()
       level_of_study = fields.Selection([
             ('masters', 'Masters'),
             ('doctoral', 'Doctoral'),
       ], string='Study Level', required=True)
       major = fields.Char("Major")
-      passport_num = fields.Char("Passport Number")
-      passport_valid_until = fields.Date("Valid Until")
-      reason_for_visit = fields.Text("Reason Visit")
-      period_of_stay = fields.Integer("Period")
+      home_address = fields.Char("Address")
+      company_name = fields.Char("Company Name")
+      company_address_country = fields.Char("Company Address Country")
+      internship_duration_start= fields.Date("Internship Duration Start")
+      internship_duration_end= fields.Date("Internship Duration End")
 
 #     name = fields.Char()
 #     value = fields.Integer()

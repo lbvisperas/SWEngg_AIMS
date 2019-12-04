@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_visa_visa,visa.visa,model_visa_visa,,1,1,1,1
 access_visa_requests,visa.requests,model_visa_requests,,1,1,1,1
+access_visa_internship,visa.internship,model_visa_internship,,1,1,1,1
+access_visa_conference,visa.conference,model_visa_conference,,1,1,1,1

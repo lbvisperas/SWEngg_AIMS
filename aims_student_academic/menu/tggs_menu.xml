@@ -102,7 +102,6 @@
         <menuitem id="menu_op_visa_visa_main"
                   name="VISA"
                   parent="menu_school_school_root"
-                  action="act_open_student_category_view"
                   sequence="60"/>
     </data>
 </odoo>

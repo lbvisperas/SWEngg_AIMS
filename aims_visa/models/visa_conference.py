@@ -2,24 +2,25 @@
 
 from odoo import models, fields, api
 
-class VisaRequests(models.Model):
-      _name = 'visa.requests'
+class VisaConference(models.Model):
+      _name = 'visa.conference'
 
       first_name = fields.Char("First Name")
       middle_name = fields.Char("Middle Name")
       last_name = fields.Char("Last Name")
-      nationality = fields.Char("Nationality")
-      country = fields.Char("Country")
       student_id = fields.Integer()
       level_of_study = fields.Selection([
             ('masters', 'Masters'),
             ('doctoral', 'Doctoral'),
       ], string='Study Level', required=True)
       major = fields.Char("Major")
-      passport_num = fields.Char("Passport Number")
-      passport_valid_until = fields.Date("Valid Until")
-      reason_for_visit = fields.Text("Reason Visit")
-      period_of_stay = fields.Integer("Period")
+      home_address = fields.Text("Address")
+      publication_entitled = fields.Text("Publication Entitled")
+      conference_name = fields.Char("Conference Name")
+      address_country = fields.Text("Address/Country")
+      conference_date_start= fields.Date("Conference Date Start")
+      conference_date_end= fields.Date("Conference Date End")
+      tggs_advisor_name= fields.Char("TGGS Adviser Name")
 
 #     name = fields.Char()
 #     value = fields.Integer()
