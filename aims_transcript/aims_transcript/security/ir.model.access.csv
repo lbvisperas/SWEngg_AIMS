@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_student_grades,Student,model_student_grades,aims_transcript.group_student,1,1,0,0
+access_academic_affair_grades,Academic Affair,model_student_grades,aims_transcript.group_academic_affair,1,1,1,1
+access_sgrades,access.student.sgrades,model_student_sgrades,base.group_user,1,1,1,0

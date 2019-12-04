@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="transcript-pdf"
+            model="student.grades"
+            string="Transcript"
+            report_type="qweb-pdf"
+            name="aims_transcript.report_transcript"
+            file="aims_transcript.report_transcript"
+        />
+    </data>
+</odoo>

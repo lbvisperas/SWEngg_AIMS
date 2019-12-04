@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="group_student" model="res.groups">
+            <field name="name">Student Group </field>
+            <field name="category_id" ref="aims_student_academic.module_category_tggs"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_academic_affair" model="res.groups">
+            <field name="name">Academic Affair Group</field>
+            <field name="category_id" ref="aims_student_academic.module_category_tggs"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+
+    </data>
+</odoo>
