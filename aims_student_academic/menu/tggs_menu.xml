@@ -39,7 +39,7 @@
                   sequence="30"
                   parent="menu_op_academic_academic_course"
                   action="act_open_student_subject_view"
-                  groups="group_student_faculty,group_student_back_office_admin"/>
+                  groups="group_student_faculty,group_student_back_office_admin,group_student_back_office"/>
 
         <menuitem id="menu_batch_batch_main"
                   name="Batches"
