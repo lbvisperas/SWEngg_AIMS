@@ -25,12 +25,12 @@
                 <form string="Batch">
                     <sheet>
                         <group col="4" name="main">
-                            <field name="name"/>
+                            <field name="name" readonly="1"/>
+                            <field name="course_id"/>
                             <field name="year"/>
                             <field name="semester"/>
                             <field name="start_date"/>
                             <field name="end_date"/>
-                            <field name="course_id"/>
                         </group>
                     </sheet>
                     <div class="oe_chatter">
