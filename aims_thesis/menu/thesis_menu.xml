@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_student_thesis_progress_type_sub"
+                  name="Thesis Progress"
+                  parent="aims_student_academic.menu_op_thesis_publications_main"
+                  sequence="10"
+                  action="act_open_student_thesis_progress_view"
+                  groups="base.group_user"/>
+    </data>
+</odoo>
