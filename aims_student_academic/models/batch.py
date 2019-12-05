@@ -7,9 +7,9 @@ from odoo.exceptions import ValidationError
 class StudentBatch(models.Model):
     _name = "student.batch"
     _inherit = "mail.thread"
-    _description = "TGGS batch"
+    _description = "TGGS Batch"
 
-    name = fields.Char('Name', size=256, default='SSE_2010_First_Semester')
+    name = fields.Char('Name', size=128, default='SSE_2010_First_Semester')
     year = fields.Char('Year', size=4, required=True, default='2019')
     semester = fields.Selection([
         ('First_Semester', 'First_Semester'),
@@ -40,5 +40,23 @@ class StudentBatch(models.Model):
             end_date = fields.Date.from_string(record.end_date)
             if start_date > end_date:
                 raise ValidationError(
-                    _("End Date cannot be set before Start Date."))
+                    _("[ERROR] End Date cannot be set before Start Date."))
 
+    @api.multi
+    @api.constrains('year')
+    def year_check(self):
+        for record in self:
+            if len(record.year) != 4:
+                raise ValidationError(_(
+                    "[ERROR] Year must be exactly 4 characters!"))
+
+    @api.multi
+    @api.constrains('name')
+    def name_check(self):
+        for record in self:
+            if len(record.name) > 128:
+                raise ValidationError(_(
+                    "[ERROR] Name cannot be greater than 128 characters"))
+            if len(record.name) < 1:
+                raise ValidationError(_(
+                    "[ERROR] Name cannot be less than 1 character"))

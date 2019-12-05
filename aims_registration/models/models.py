@@ -27,7 +27,7 @@ class Registration(models.Model):
     state = fields.Selection([('draft', 'Draft'), ('submit', 'Submitted'), ('confirm', 'Confirmed'),
                               ('refuse', 'Refused'), ], required=True, default='draft')
 
-    @api.multi
+    @api.mlti
     def btn_submit(self):
         for rec in self:
             rec.write({'state': 'submit'})

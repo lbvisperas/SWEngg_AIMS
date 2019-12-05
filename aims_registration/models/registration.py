@@ -7,6 +7,7 @@ from odoo.exceptions import ValidationError
 class StudentRegistration(models.Model):
     _name = "student.registration"
     _inherit = ["mail.thread"]
+    _description = "TGGS Registration"
 
     name = fields.Char('Name', readonly=True, default='New')
     sample_course = fields.Char('Course', readonly=True, default='New')

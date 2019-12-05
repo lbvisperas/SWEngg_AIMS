@@ -8,7 +8,6 @@
             <field name="arch" type="xml">
                 <tree string="Subject">
                     <field name="name"/>
-                    <!--<field name="course"/>-->
                     <field name="code"/>
                     <field name="subject_type"/>
                     <field name="lec_hours"/>
@@ -27,10 +26,27 @@
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <form string="Subject">
+                    <!---<header>
+                        <button name="action_submitted" string="Submit"
+                                groups="group_student_faculty"
+                                type="object" class="oe_highlight" states="draft"/>
+                        <button name="action_approve" string="Approve"
+                                groups="group_student_back_office,group_student_back_office_admin"
+                                type="object" class="oe_highlight"
+                                states="submitted"/>
+                        <button name="action_reject" string="Reject"
+                                groups="group_student_back_office,group_student_back_office_admin"
+                                type="object" class="oe_highlight"
+                                states="submitted"/>
+                        <button string="Reset to Draft" class="oe_highlight"
+                                groups="group_student_faculty"
+                                states="rejected" type="object"
+                                name="action_reset_draft"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,rejected"/>
+                    </header>-->
                     <sheet>
                         <group col="4">
                             <field name="name"/>
-                            <!--<field name="course"/>-->
                             <field name="code"/>
                             <field name="subject_type"/>
                             <field name="lec_hours"/>
@@ -56,7 +72,6 @@
             <field name="arch" type="xml">
                 <search string="Subject">
                     <field name="name"/>
-                    <!--<field name="course"/>-->
                     <field name="code"/>
                     <field name="lec_hours"/>
                     <field name="assign_self"/>
@@ -91,7 +106,6 @@
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_student_subject_form"/>
         </record>
-
         <record model="ir.actions.act_window.view" id="act_open_student_subject_view_tree">
             <field name="act_window_id" ref="act_open_student_subject_view"/>
             <field name="sequence" eval="10"/>

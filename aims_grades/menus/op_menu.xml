@@ -8,13 +8,6 @@
                   action="act_open_op_assignment_view"
                   groups="base.group_user"/>
 
-        <menuitem id="menu_student_line_main"
-                  name="Class List"
-                  sequence="20"
-                  parent="aims_student_academic.menu_op_academic_grades"
-                  action="act_open_op_assignment_sub_line_view"
-                  groups="base.group_user"/>
-
     </data>
 </odoo>
 

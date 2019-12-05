@@ -10,7 +10,7 @@ class StudentSection(models.Model):
     _description = "Section"
     _order = "submission_date DESC"
 
-    name = fields.Char('Section', size=64, required=True)
+    name = fields.Char('Classes', size=64, required=True)
     course_id = fields.Many2one('student.course', 'Course', required=True)
     batch_id = fields.Many2one('student.batch', 'Batch', required=True)
     subject_id = fields.Many2one('student.subject', 'Subject', required=True)

@@ -48,6 +48,38 @@ class StudentFaculty(models.Model):
             if record.birth_date > fields.Date.today():
                 raise ValidationError(_(
                     "Birth Date can't be greater than current date!"))
+    @api.multi
+    @api.constrains('first_name')
+    def name_check(self):
+        for record in self:
+            if len(record.first_name) > 128:
+                raise ValidationError(_(
+                    "[ERROR] First Name cannot be greater than 128 characters"))
+            if len(record.first_name) < 1:
+                raise ValidationError(_(
+                    "[ERROR] First Name cannot be less than 1 character"))
+
+    @api.multi
+    @api.constrains('last_name')
+    def name_check(self):
+        for record in self:
+            if len(record.last_name) > 128:
+                raise ValidationError(_(
+                    "[ERROR] Last Name cannot be greater than 128 characters"))
+            if len(record.last_name) < 1:
+                raise ValidationError(_(
+                    "[ERROR] Last Name cannot be less than 1 character"))
+
+    @api.multi
+    @api.constrains('middle_name')
+    def name_check(self):
+        for record in self:
+            if len(record.middle_name) > 128:
+                raise ValidationError(_(
+                    "[ERROR] Middle Name cannot be greater than 128 characters"))
+            if len(record.middle_name) < 1:
+                raise ValidationError(_(
+                    "[ERROR] Middle cannot be less than 1 character"))
 
     @api.multi
     @api.onchange('last_name')

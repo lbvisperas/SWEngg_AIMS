@@ -48,6 +48,39 @@ class StudentAffairs(models.Model):
                 record.name = str(record.first_name) + ' ' + str(record.middle_name[0]) + ' ' + str(record.last_name)
 
     @api.multi
+    @api.constrains('first_name')
+    def name_check(self):
+        for record in self:
+            if len(record.first_name) > 128:
+                raise ValidationError(_(
+                    "[ERROR] First Name cannot be greater than 128 characters"))
+            if len(record.first_name) < 1:
+                raise ValidationError(_(
+                    "[ERROR] First Name cannot be less than 1 character"))
+
+    @api.multi
+    @api.constrains('last_name')
+    def name_check(self):
+        for record in self:
+            if len(record.last_name) > 128:
+                raise ValidationError(_(
+                    "[ERROR] Last Name cannot be greater than 128 characters"))
+            if len(record.last_name) < 1:
+                raise ValidationError(_(
+                    "[ERROR] Last Name cannot be less than 1 character"))
+
+    @api.multi
+    @api.constrains('middle_name')
+    def name_check(self):
+        for record in self:
+            if len(record.middle_name) > 128:
+                raise ValidationError(_(
+                    "[ERROR] Middle Name cannot be greater than 128 characters"))
+            if len(record.middle_name) < 1:
+                raise ValidationError(_(
+                    "[ERROR] Middle cannot be less than 1 character"))
+
+    @api.multi
     def create_employee(self):
         for record in self:
             vals = {

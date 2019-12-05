@@ -118,28 +118,33 @@
                         <notebook colspan="4">
                             <page name="personal_information"
                                   string="Student Information">
-                                <group string = "Basic Information" col="4" colspan="4" name="personal_detail">
+                                <group  string = "Admissions Information" col="4" colspan="4" name="visa_detail">
                                     <field name="student_no" required="1"/>
+                                    <field name="student_course_id" required="1"/>
+                                    <field name="student_department" required="1"/>
                                     <field name="category_id" required="1"/>
+                                </group>
+                                <group string = "Basic Information" col="4" colspan="4" name="personal_detail">
                                     <field name="nationality" required="1"/>
                                     <field name="nat_check" invisible="1" />
-                                    <field name="gender" required="1"/>
+                                    <!--<field name="citizen_id" invisible="1" />-->
+                                    <field name="gender" />
                                     <field name="birth_date" required="1"/>
                                     <field name="status"/>
                                     <field name="height"/>
                                     <field name="weight"/>
                                     <field name="blood_group"/>
                                     <field name="emergency_contact" context="{'show_address': 1}" options='{"always_reload": True}'/>
+                                    <!--<field name="mother_name"/>-->
+                                    <!--<field name="father_name"/>-->
                                     <field name="mobile" required="1"/>
                                     <field name="user_id" string="User" readonly="1"/>
                                     <field name="email" required="1"/>
-                                    <field name="partner_id" placeholder="Username"/>
+                                    <field name="partner_id" placeholder="Username" readonly="1"/>
                                 </group>
                                 <group  string = "Passport Information" col="4" colspan="4" name="visa_detail">
                                     <field name="passport_number" attrs="{'invisible':[('nat_check', '=', True)]}" />
                                     <field name="visa_number" attrs="{'invisible':[('nat_check', '=', True)]}" />
-                                    <field name="passport_issue" attrs="{'invisible':[('nat_check', '=', True)]}" />
-                                    <field name="visa_issue" attrs="{'invisible':[('nat_check', '=', True)]}" />
                                     <field name="passport_expire" attrs="{'invisible':[('nat_check', '=', True)]}" />
                                     <field name="visa_expire" attrs="{'invisible':[('nat_check', '=', True)]}" />
                                 </group>
@@ -180,8 +185,7 @@
                                 <group>
                                     <separator string="Admission Details"
                                                colspan="4"/>
-                                    <field name="course_detail_ids"
-                                           nolabel="1">
+                                    <field name="course_detail_ids" nolabel="1" required="1">
                                         <tree string="Course Details">
                                             <field name="course_id" readonly="1"/>
                                             <field name="batch_id" readonly="1"/>

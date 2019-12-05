@@ -31,16 +31,16 @@ class StudentStudent(models.Model):
     middle_name = fields.Char('Middle Name', size=128, required=True)
     last_name = fields.Char('Last Name', size=128)
     birth_date = fields.Date('Birth Date')
-    country_birth = fields.Many2one('res.country','Country of Birth')
+    country_birth = fields.Many2one('res.country', 'Country of Birth')
     nationality = fields.Many2one('res.country', 'Nationality', required=True)
     nat_check = fields.Boolean(compute='_get_value')
-    height = fields.Integer(string="Height (cm)")
-    weight = fields.Integer(string="Weight (kg)")
+    #citizen_id = fields.Char('Citizen ID', size=128)
+    height = fields.Integer(string="Height (cm)", size=64)
+    weight = fields.Integer(string="Weight (kg)", size=64)
     status = fields.Selection([
         ('single', 'Single'),
         ('married', 'Married'),
-        ('divorced', 'Divorced'),
-        ('widowed', 'Widowed')
+        ('divorced', 'Divorced')
     ], string='Marital Status', required=True, default='single')
     blood_group = fields.Selection([
         ('A+', 'A+ve'),
@@ -51,36 +51,28 @@ class StudentStudent(models.Model):
         ('B-', 'B-ve'),
         ('O-', 'O-ve'),
         ('AB-', 'AB-ve')
-    ], string='Blood Group', required=True, default='A+', track_visibility='onchange')
+    ], string='Blood Group', default='A+', track_visibility='onchange')
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female'),
         ('other', 'Other')
-    ], string='Gender', required=True, default='male', track_visibility='onchange')
+    ], string='Gender')
 
-    # get one specific class for mobile and contact information here
-    mobile = fields.Char('Mobile')
-    email = fields.Char('Email')
-    emergency_contact = fields.Many2one('res.partner', 'Emergency Contact')
+    # Mobile and Email are actually inherited from res.partner; and are / will be equal <=>
+    mobile = fields.Char('Mobile', size=10)
+    email = fields.Char('Email', size=128, track_visibility='always')
+    emergency_contact = fields.Many2one('res.partner', 'Emergency Contact', required=True)
+    #mother_name = fields.Many2one('res.partner', 'Mother Name', required=True)
+    #father_name = fields.Many2one('res.partner', 'Father Name', required=True)
+    partner_id = fields.Many2one('res.partner', 'Contact Info', ondelete="cascade", required=True)
 
-    # get one specific class for passport info ==> get this from Ather
-    passport_number = fields.Char(string='Passport Number', track_visibility='always')
+    # PASSPORT INFORMATION
+    passport_number = fields.Char(string='Passport Number', track_visibility='always', size=128, required=True)
     passport_issue = fields.Date('Passport Issuance Date')
     passport_expire = fields.Date('Passport Expiry Date')
-    visa_number = fields.Char('Visa Number', size=64)
+    visa_number = fields.Char('Visa Number', size=20, required=True)
     visa_issue = fields.Date('Visa Issuance Date')
     visa_expire = fields.Date('Visa Expiry Date')
-    partner_id = fields.Many2one('res.partner', 'Partner', ondelete="cascade", required=True)
-
-    # BASIC FAMILY INFORMATION
-    parent_status = fields.Selection([
-        ('single', 'Single'),
-        ('married', 'Married'),
-        ('divorced', 'Divorced'),
-        ('widowed', 'Widowed')
-    ], string='Parental Status', default='single')
-    father_name = fields.Char(string="Father's Name")
-    mother_name = fields.Char(string="Mother's Name")
 
     # PREVIOUS EDUCATIONAL INFORMATION
     education_level = fields.Selection([
@@ -94,7 +86,7 @@ class StudentStudent(models.Model):
     study_school = fields.Char("School")
 
     # TGGS EDUCATIONAL INFORMATION
-    category_id = fields.Many2one('student.category', 'Category')
+    category_id = fields.Many2one('student.category', 'Scholarship Category')
     student_course_id = fields.Many2one('student.course', 'Course')
     student_batch_id = fields.Many2one('student.batch', 'Batch')
     student_department = fields.Many2one('student.course', 'Department')
@@ -111,14 +103,104 @@ class StudentStudent(models.Model):
     _sql_constraints = [
         ('unique_mobile',
          'unique(mobile)',
-         'Mobile Number must be unique per student!'),
+         '[ERROR] Mobile Number must be unique per student!'),
         ('unique_email',
          'unique(email)',
-         'Email must be unique per student!'),
+         '[ERROR] Email must be unique per student!'),
         ('unique_student_no',
          'unique(student_no)',
-         'Student Number must be unique per student!'),
+         '[ERROR] Student Number must be unique per student!'),
     ]
+
+    # Student Number Check
+    @api.multi
+    @api.constrains('student_no')
+    def _check_student_no(self):
+        for record in self:
+            if record.student_no:
+                if len(record.student_no) != 13:
+                    raise ValidationError(
+                        "[ERROR] You have not entered your full user ID by entering% d digits, please enter 13 digits" % len(
+                            record.student_no))
+                index = 0
+                listData = list(record.student_no)
+                checkSum = 0  # Results
+                while index < 12:
+                    checkSum += int(listData[index]) * (13 - index)
+                    index += 1
+                digit13 = checkSum % 11
+                if digit13 != int(listData[12]):
+                    self.nat_check = False
+
+    # ensures that weight and height are not zero values
+    @api.multi
+    @api.constrains('weight', 'height')
+    def check_physical(self):
+        for record in self:
+            if record.weight == 0:
+                raise ValidationError(_(
+                    "[ERROR] Weight cannot be a zero value"))
+            if record.height == 0:
+                raise ValidationError(_(
+                    "[ERROR] Height cannot be a zero value"))
+
+    @api.multi
+    @api.constrains('first_name')
+    def name_check(self):
+        for record in self:
+            if len(record.first_name) > 128:
+                raise ValidationError(_(
+                    "[ERROR] First Name cannot be greater than 128 characters"))
+            if len(record.first_name) < 1:
+                raise ValidationError(_(
+                    "[ERROR] First Name cannot be less than 1 character"))
+
+    @api.multi
+    @api.constrains('last_name')
+    def name_check(self):
+        for record in self:
+            if len(record.last_name) > 128:
+                raise ValidationError(_(
+                    "[ERROR] Last Name cannot be greater than 128 characters"))
+            if len(record.last_name) < 1:
+                raise ValidationError(_(
+                    "[ERROR] Last Name cannot be less than 1 character"))
+
+    @api.multi
+    @api.constrains('middle_name')
+    def name_check(self):
+        for record in self:
+            if len(record.middle_name) > 128:
+                raise ValidationError(_(
+                    "[ERROR] Middle Name cannot be greater than 128 characters"))
+            if len(record.middle_name) < 1:
+                raise ValidationError(_(
+                    "[ERROR] Middle cannot be less than 1 character"))
+
+    #ensures that passport and visa number are not zero values
+
+    @api.multi
+    @api.constrains('passport_number')
+    def passport_check(self):
+        for record in self:
+            if len(record.passport_number) > 128:
+                raise ValidationError(_(
+                    "[ERROR] Passport Number cannot be greater than 128 characters"))
+            if len(record.passport_number) < 1:
+                raise ValidationError(_(
+                    "[ERROR] Passport Number cannot be less than 1 character"))
+
+    @api.multi
+    @api.constrains('visa_number')
+    def visa_check(self):
+        for record in self:
+            if len(record.visa_number) > 20:
+                raise ValidationError(_(
+                    "[ERROR] Visa Number cannot greater than 20 characters"))
+            if len(record.visa_number) < 1:
+                raise ValidationError(_(
+                    "[ERROR] Visa Number cannot be less than 1 character"))
+
 
     @api.multi
     @api.onchange('nationality')
@@ -129,33 +211,6 @@ class StudentStudent(models.Model):
             self.nat_check = False
 
     @api.multi
-    @api.onchange('last_name')
-    def res_partner_name(self):
-        for record in self:
-            if record.last_name:
-                record.name = str(record.first_name) + ' ' + (str(record.middle_name[0]) or '') + ' ' + str(record.last_name)
-
-    # Student Number Check
-    @api.multi
-    @api.constrains('student_no')
-    def _check_student_no(self):
-        for record in self:
-            if record.student_no:
-                if len(record.student_no) != 13:
-                    raise ValidationError(
-                        "You have not entered your full user ID by entering% d digits, please enter 13 digits" % len(
-                            record.student_no))
-                index = 0  # Reference value index list Identification Card Information
-                listData = list(record.student_no)  # listNational ID Card Information
-                checkSum = 0  # Results
-                while index < 12:
-                    checkSum += int(listData[index]) * (13 - index)  # Combine the index values ​​with each index list * (13 - index) and combine them with checkSum.
-                    index += 1  # Increase the index by 1
-                digit13 = checkSum % 11  # checkSum divided by 11 take the numerator
-                if digit13 != int(listData[12]):  # If the 13th digit value is equal to the 13th digit value entered, returns True.
-                    self.nat_check = False
-
-    @api.multi
     @api.constrains('birth_date')
     def check_birth_date(self):
         for record in self:
@@ -163,19 +218,43 @@ class StudentStudent(models.Model):
                 raise ValidationError(_(
                     "[ERROR] Birth Date cannot be greater than current date!"))
 
+    @api.multi
+    @api.constrains('mobile')
+    def check_mobile(self):
+        for record in self:
+            if record.mobile:
+                if len(record.mobile) != 10:
+                    raise ValidationError(_(
+                        "[ERROR] Mobile number must be a 10 digit Thailand Number (e.g. 0656049400"))
+                if record.mobile[0:1] != '0':
+                    raise ValidationError(_(
+                        "[ERROR] Mobile number must be a VALID 10 digit Thailand Number (e.g. 0656049400) %s" %str(record.mobile[0:1])))
+                else:
+                    record.partner_id.mobile = record.mobile
+                    record.partner_id.email = record.email
+
     # Course Test Relationship <=> is course equivalent to parent
     @api.multi
     @api.onchange('student_course_id')
     def check_course_details(self):
         for record in self:
-            record.student_department = record.student_course_id.parent_id
+            if record.student_department:
+                record.student_department = record.student_course_id.parent_id
+            if record.course_detail_ids:
+                record.course_detail_ids.course_id = record.student_course_id
+                record.course_detail_ids.department = record.student_department
 
     @api.multi
-    @api.onchange('student_course_id')
-    def check_course_details(self):
-        if self.course_detail_ids:
-                self.course_detail_ids.course_id = self.student_course_id
-                self.course_detail_ids.department = self.student_department
+    @api.onchange('student_course_id', 'first_name', 'last_name')
+    def onchange_email(self):
+        for record in self:
+            if record.email:
+                record.email = ((str(record.first_name)).lower() or '') + '.' + \
+                               ((str(record.last_name[0])).lower() or '') + '-' \
+                               + ((str(record.student_course_id.code)).lower() or '') + '2019@tggs.kmutnb.ac.th'
+                record.partner_id.email = record.email
+            if record.name:
+                record.name = str(record.first_name) + ' ' + (str(record.middle_name[0]) or '') + ' ' + str(record.last_name)
 
     @api.multi
     @api.constrains('course_detail_ids')
@@ -204,7 +283,7 @@ class StudentStudent(models.Model):
                 user_id = users_res.create({
                     'name': str(record.first_name) + ' ' + (str(record.middle_name[0]) or '') + ' ' + str(record.last_name),
                     'partner_id': record.partner_id.id,
-                    'login': record.email or (record.first_name + ' ' + record.last_name),
+                    'login': record.email,
                     'groups_id': user_group,
                 })
                 record.user_id = user_id
