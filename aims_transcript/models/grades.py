@@ -82,12 +82,10 @@ class Grade(models.Model):
             record.program = record.student_no.category_id
             record.study_field = record.student_no.study_field
             record.study_school = record.student_no.study_school
-
-    @api.onchange('student_course_id')
-    def onchange_student(self, context=None):
-        for record in self:
-            record.student_course = record.student_course_id.course_id.name
-            record.semester = record.student_course_id.batch_id.semester
+            for course in record.student_no.course_detail_ids:
+                if course.student_id == record.student_no:
+                    record.student_course = course.course_id.name
+                    record.semester = course.batch_id.semester
 
     @api.onchange('student_grades_id')
     def calculate_gpa(self):
@@ -100,10 +98,6 @@ class Grade(models.Model):
             else:
                 record.gpa = 0
 
-    @api.multi
-    def action_reset_draft(self):
-        for record in self:
-            record.state = 'draft'
 
     @api.multi
     def action_submitted(self):
@@ -113,13 +107,14 @@ class Grade(models.Model):
             current_dir = os.path.dirname(os.path.abspath(__file__))
             transcript_path = os.path.join(current_dir, 'transcript_form.pdf')
             transcript_path_output = os.path.join(current_dir, 'transcript_output.pdf')
+            education_lv = True if record.education_level == "master" else False
             data = {
                 'date': now.day,
                 'month': now.month,
                 'year': now.year,
                 'full_name': record.full_name,
                 'student_id': record.student_id,
-                'education_level': False,
+                'education_level': education_lv,
                 'school': record.study_school,
                 'mobile': record.student_no.mobile,
                 'email': record.student_no.email,
@@ -141,4 +136,4 @@ class Grade(models.Model):
     def rename_file(self):
         for record in self:
             if record.state == "request":
-                record.report_name = 'Transcript.pdf'
+                record.report_name = 'TGGS Transcript Request Form.pdf'

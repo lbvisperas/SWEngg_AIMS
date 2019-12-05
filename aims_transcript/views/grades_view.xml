@@ -42,12 +42,9 @@
                         <field name="education_level" readonly="1" force_save="1"/>
                     </group>
                     <group string="Student Course">
-                        <field name="student_course_id" on_change="onchange_student_course(student_course_id)" domain="[('student_id', '=', student_no)]"/>
                         <field name="student_course" readonly="1" force_save="1"/>
                         <field name="semester" readonly="1" force_save="1"/>
                         <field name="gpa" readonly="1" force_save="1"/>
-                        <field name="report_transcript" filename="report_name" attrs="{'invisible':[('state', '=', 'draft')]}"></field>
-                        <field name="report_name" invisible="1"></field>
                     </group>
                     <group string="Student Grades" name="grades">
                         <field name="student_grades_id" nolabel="1" widget='one2many' on_change="calculate_gpa"/>
