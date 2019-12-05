@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <tree string="Course Registration">
                     <field name="name"/>
-                    <field name="sample_course"/>
+                    <!-- <field name="sample_course"/> -->
                     <field name="student_id"/>
                     <field name="course_id"/>
                     <field name="batch_id"/>
@@ -46,11 +46,9 @@
                         <group colspan="4" col="4">
                             <field name="student_id"/>
                             <field name="name"/>
-                            <field name="sample_course"/>
+                            <!-- <field name="sample_course"/> -->
                             <field name="course_id" options="{'no_open': True, 'no_create': True}"/>
                             <field name="batch_id" domain="[('course_id', '=', course_id)]"/>
-                            <field name="min_unit_load"/>
-                            <field name="max_unit_load"/>
                         </group>
                         <button name="get_subjects" type="object" string="Get Subjects" class="oe_highlight"/>
                         <group>
