@@ -6,7 +6,7 @@
         <field name="model">student.grades</field>
         <field name="priority" eval="8"/>
         <field name="arch" type="xml">
-            <tree string="Transcript" create="false" edit="false">
+            <tree string="Transcript" create="false" edit="false" delete="false">
                 <field name="student_id"/>
                 <field name="full_name"/>
                 <field name="program"/>
@@ -23,7 +23,7 @@
         <field name="model">student.grades</field>
         <field name="priority" eval="8"/>
         <field name="arch" type="xml">
-            <form string="Transcript" create="false" edit="false">
+            <form string="Transcript" create="false" edit="false" delete="false">
                 <header>
 <!--                    <button string="Reset Draft" name="action_reset_draft"-->
 <!--                            groups="base.group_user"-->
