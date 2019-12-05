@@ -76,7 +76,7 @@
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">
-                Click here to create new publication
+                Click here to create new publication !
             </p>
         </field>
     </record>
@@ -117,7 +117,7 @@
         <field name="view_id" ref="student_publication_tree_view" />
     </record>
 
-    <menuitem name="Thesis" id="thesisproposal_top_menu" sequence="0"/>
-    <menuitem name="Thesis Proposal" id="thesisproposal_menu" sequence="1" parent="thesisproposal_top_menu" action="student_publication_action"/>
+    <!--<menuitem name="Thesis" id="thesisproposal_top_menu" sequence="0"/>
+    <menuitem name="Thesis Proposal" id="thesisproposal_menu" sequence="1" parent="thesisproposal_top_menu" action="student_publication_action"/>-->
 
 </odoo>

@@ -94,14 +94,14 @@
         </field>
     </record>
 
-    <record id="student_thesis_action" model="ir.actions.act_window">
+    <record id="student_thesis_progress_action" model="ir.actions.act_window">
         <field name="name">Thesis Progress</field>
         <field name="res_model">student.thesis.progress</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">
-                Click here to create new thesis progress
+                Click here to create a new thesis progress !
             </p>
         </field>
     </record>
@@ -130,14 +130,14 @@
 
     <record model="ir.actions.act_window.view" id="act_open_student_thesis_progress_view_form">
         <field name="act_window_id" ref="act_open_student_thesis_progress_view" />
-        <field name="sequence" eval="20" />
+<!--        <field name="sequence" eval="20" />-->
         <field name="view_mode">form</field>
         <field name="view_id" ref="student_thesis_progress_form_view" />
     </record>
 
     <record model="ir.actions.act_window.view" id="act_open_student_thesis_progress_view_tree">
         <field name="act_window_id" ref="act_open_student_thesis_progress_view" />
-        <field name="sequence" eval="10" />
+<!--        <field name="sequence" eval="10" />-->
         <field name="view_mode">tree</field>
         <field name="view_id" ref="student_thesis_progress_tree_view" />
     </record>

@@ -4,8 +4,26 @@
         <menuitem id="menu_student_thesis_progress_type_sub"
                   name="Thesis Progress"
                   parent="aims_student_academic.menu_op_thesis_publications_main"
+                  sequence="20"
+                  action="student_thesis_progress_action"
+                  groups="base.group_user"/>
+        <menuitem id="menu_student_thesis_defense_type_sub"
+                  name="Thesis Defense"
+                  parent="aims_student_academic.menu_op_thesis_publications_main"
+                  sequence="30"
+                  action="student_thesis_defense_action"
+                  groups="base.group_user"/>
+        <menuitem id="menu_student_thesis_proposal_type_sub"
+                  name="Thesis Proposal"
+                  parent="aims_student_academic.menu_op_thesis_publications_main"
                   sequence="10"
-                  action="act_open_student_thesis_progress_view"
+                  action="student_thesis_action"
+                  groups="base.group_user"/>
+        <menuitem id="menu_student_publication_type_sub"
+                  name="Publication"
+                  parent="aims_student_academic.menu_op_thesis_publications_main"
+                  sequence="40"
+                  action="student_publication_action"
                   groups="base.group_user"/>
     </data>
 </odoo>
