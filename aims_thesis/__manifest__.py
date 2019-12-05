@@ -11,9 +11,10 @@
 	'depends': ['base', 'mail', 'aims_student_academic'],
 	'data': [
 		'security/ir.model.access.csv',
-		# 'views/thesis.xml',
-		# 'views/thesisprogress.xml',
-		# 'views/thesisdefense.xml',
+		'views/thesis.xml',
+		'views/thesisprogress.xml',
+		'views/thesisdefense.xml',
+		'menu/thesis_menu.xml',
 		'views/publication.xml'
 	],
 	'installable': True,
