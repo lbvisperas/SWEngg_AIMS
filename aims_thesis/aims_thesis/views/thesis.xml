@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <record id="student_publication_tree_view" model="ir.ui.view">
-        <field name="name">student.publication.tree.view</field>
-        <field name="model">student.publication</field>
+    <record id="student_thesis_tree_view" model="ir.ui.view">
+        <field name="name">student.thesis.tree.view</field>
+        <field name="model">student.thesis</field>
         <field name="priority" eval="8"/>
         <field name="arch" type="xml">
-            <tree string="Publication Request Information">
+            <tree string="Thesis Request Information">
                 <field name="first_name"/>
                 <field name="last_name"/>
                 <field name="student_id"/>
@@ -16,19 +16,20 @@
                 <field name="address"/>
                 <field name="mobile"/>
                 <field name="email"/>
-                <field name="title"/>
+                <field name="proposal_title"/>
+                <field name="semester"/>
                 <field name="gpa"/>
                 <field name="state"/>
             </tree>
         </field>
     </record>
 
-    <record id="student_publication_form_view" model="ir.ui.view">
-        <field name="name">student.publication.form.view</field>
-        <field name="model">student.publication</field>
+    <record id="student_thesis_form_view" model="ir.ui.view">
+        <field name="name">student.thesis.form.view</field>
+        <field name="model">student.thesis</field>
         <field name="priority" eval="8"/>
         <field name="arch" type="xml">
-            <form string="Publication Request Information">
+            <form string="Thesis Request Information">
                 <header>
                     <button name="action_request" type="object" string="Request" states="draft" class="oe_highlight"/>
                     <button name="action_accept" type="object" string="Accept" states="submitted" class="oe_highlight"/>
@@ -50,14 +51,16 @@
                         <field name="mobile" string="Mobile" placeholder="Mobile" style="max-width: 1150px; width: 300px"/>
                         <field name="email" string="Email" placeholder="Email" style="max-width: 1150px; width: 300px"/>
                     </group>
-                    <group string="Publication Information">
-                        <field name="title" style="max-width: 1150px; width: 500px; height: 150px"/>
-                        <field name="author" placeholder="Semester" style="max-width: 1150px; width: 500px"/>
-                        <field name="name" style="max-width: 1150px; width: 500px"/>
-                        <field name="date" style="max-width: 1150px; width: 500px"/>
-                        <field name="venue" style="max-width: 1150px; width: 500px"/>
-                        <field name="citation" style="max-width: 1150px; width: 500px"/>
-                        <field name="database" style="max-width: 1150px; width: 500px"/>
+                    <group string="Thesis Information">
+                        <field name="proposal_title" string="Proposal Thesis Title" placeholder="Proposal Thesis Title" style="max-width: 1150px; width: 500px; height: 150px"/>
+                        <field name="semester" string="Semester" placeholder="Semester" style="max-width: 1150px; width: 500px"/>
+                        <field name="gpa" string="GPA" placeholder="GPA" style="max-width: 1150px; width: 500px"/>
+
+                    </group>
+                    <group string="Advisor Infomation">
+                        <field name="advisor" onchange="onchange_advisor(advisor)" required="1" style="max-width: 1150px; width: 500px"/>
+                        <field name="co_advisor_first" onchange="onchange_advisor(co_advisor_first)" required="1" style="max-width: 1150px; width: 500px"/>
+                        <field name="co_advisor_second" onchange="onchange_advisor(co_advisor_second)" required="1" style="max-width: 1150px; width: 500px"/>
                     </group>
                 </sheet>
                 <div class="oe_chatter">
@@ -69,55 +72,55 @@
         </field>
     </record>
 
-    <record id="student_publication_action" model="ir.actions.act_window">
-        <field name="name">Publication</field>
-        <field name="res_model">student.publication</field>
+    <record id="student_thesis_action" model="ir.actions.act_window">
+        <field name="name">Thesis</field>
+        <field name="res_model">student.thesis</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">
-                Click here to create new publication
+                Click here to create new thesis proposals
             </p>
         </field>
     </record>
 
-    <record id="view_student_publication_search" model="ir.ui.view">
-        <field name="name">student.publication.search</field>
-        <field name="model">student.publication</field>
+    <record id="view_student_thesis_search" model="ir.ui.view">
+        <field name="name">student.thesis.search</field>
+        <field name="model">student.thesis</field>
         <field name="priority" eval="8" />
         <field name="arch" type="xml">
-            <search string="Publication">
-                <field name="title" />
+            <search string="Thesis">
+                <field name="first_name" />
             </search>
         </field>
     </record>
 
-    <record model="ir.actions.act_window" id="act_open_student_publication_view">
-        <field name="name">Publication</field>
+    <record model="ir.actions.act_window" id="act_open_student_thesis_view">
+        <field name="name">Thesis</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">student.publication</field>
+        <field name="res_model">student.thesis</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="view_student_publication_search" />
+        <field name="search_view_id" ref="view_student_thesis_search" />
         <field name="domain">[]</field>
         <field name="context">{}</field>
     </record>
 
-    <record model="ir.actions.act_window.view" id="act_open_student_publication_view_form">
-        <field name="act_window_id" ref="act_open_student_publication_view" />
+    <record model="ir.actions.act_window.view" id="act_open_student_thesis_view_form">
+        <field name="act_window_id" ref="act_open_student_thesis_view" />
         <field name="sequence" eval="20" />
         <field name="view_mode">form</field>
-        <field name="view_id" ref="student_publication_form_view" />
+        <field name="view_id" ref="student_thesis_form_view" />
     </record>
 
-    <record model="ir.actions.act_window.view" id="act_open_student_publication_view_tree">
-        <field name="act_window_id" ref="act_open_student_publication_view" />
+    <record model="ir.actions.act_window.view" id="act_open_student_thesis_view_tree">
+        <field name="act_window_id" ref="act_open_student_thesis_view" />
         <field name="sequence" eval="10" />
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="student_publication_tree_view" />
+        <field name="view_id" ref="student_thesis_tree_view" />
     </record>
 
     <menuitem name="Thesis" id="thesisproposal_top_menu" sequence="0"/>
-    <menuitem name="Thesis Proposal" id="thesisproposal_menu" sequence="1" parent="thesisproposal_top_menu" action="student_publication_action"/>
+    <menuitem name="Thesis Proposal" id="thesisproposal_menu" sequence="1" parent="thesisproposal_top_menu" action="student_thesis_action"/>
 
 </odoo>
