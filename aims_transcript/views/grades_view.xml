@@ -10,9 +10,11 @@
                 <field name="student_id"/>
                 <field name="full_name"/>
                 <field name="program"/>
-                <field name="student_course_id"/>
+                <field name="student_course"/>
                 <field name="education_level"/>
+                <field name="semester"/>
                 <field name="student_grades_id" widget="many2many_tags"/>
+                <field name="state"></field>
             </tree>
         </field>
     </record>
@@ -23,6 +25,9 @@
         <field name="priority" eval="8"/>
         <field name="arch" type="xml">
             <form string="Grades">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,request"/>
+                </header>
                 <sheet>
                     <group name="main" string="Student Information">
                         <field name="student_no" on_change="onchange_student(student_no)"/>
@@ -31,13 +36,14 @@
                         <field name="first_name" invisible="1"/>
                         <field name="middle_name" invisible="1"/>
                         <field name="last_name" invisible="1" />
-                    </group>
-                    <group string="Student Course">
                         <field name="study_school" readonly="1" force_save="1"/>
                         <field name="study_field" readonly="1" force_save="1"/>
                         <field name="program" readonly="1" force_save="1"/>
-                        <field name="student_course_id" readonly="1" force_save="1"/>
                         <field name="education_level" readonly="1" force_save="1"/>
+                    </group>
+                    <group string="Student Course">
+                        <field name="student_course" readonly="1" force_save="1"/>
+                        <field name="semester" readonly="1" force_save="1"/>
                         <field name="gpa" readonly="1" force_save="1"/>
                     </group>
                     <group string="Student Grades" name="grades">

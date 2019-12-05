@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--
+        <menuitem id="menu_subject_registration_type_sub"
+                  name="Visa"
+                  parent="aims_student_academic.menu_op_visa_visa_main"
+                  sequence="10"
+                  groups="base.group_user"/>
+        -->
+        <menuitem id="visa_menu_1_list"
+                  name="Student Visa Form"
+                  parent="aims_student_academic.menu_op_visa_visa_main"
+                  action="action_visa"
+                  groups="base.group_user"  />
+
+        <menuitem id="visa_request"
+                  name="Visa Extension Request"
+                  parent="aims_student_academic.menu_op_visa_visa_main"
+                  action="action_visa_request"
+                  groups="base.group_user"/>
+
+        <menuitem id="student_certification_visa"
+                  name="Student Certification for Visa"
+                  parent="aims_student_academic.menu_op_visa_visa_main"
+                  groups="base.group_user"/>
+
+        <menuitem id="student_visa_internship"
+                  name="For Internship"
+                  parent="student_certification_visa"
+                  action="action_visa_internship"
+                  groups="base.group_user"/>
+        <menuitem id="student_visa_conference"
+                  name="For Conference"
+                  parent="student_certification_visa"
+                  action="action_visa_conference"
+                  groups="base.group_user"  />
+
+
+    </data>
+</odoo>
+

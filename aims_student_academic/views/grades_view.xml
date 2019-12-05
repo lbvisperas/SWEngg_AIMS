@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_student_grades_tree" model="ir.ui.view">
+            <field name="name">student.grades.tree</field>
+            <field name="model">student.grades</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Grades">
+                    <field name="name"/>
+                    <field name="grade_code"/>
+                    <field name="subject_id"/>
+                    <field name="batch_id"/>
+                    <field name="faculty_id"/>
+                    <!--<field name="state"/>-->
+                    <field name="note"/>
+                    <field name="total_marks"/>
+                    <field name="min_marks"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_student_grades_form" model="ir.ui.view">
+            <field name="name">student.grades.form</field>
+            <field name="model">student.grades</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Grades">
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="subject_id" required="1"/>
+                            <field name="name"/>
+                            <field name="course_id" required="1"/>
+                            <field name="batch_id" required="1" domain="[('course_id', '=', name)]"/>
+                            <field name="grade_code"/>
+                            <field name="total_marks"/>
+                            <field name="min_marks"/>
+                        </group>
+                         <group>
+                             <separator string="Student Details"
+                                               colspan="4"/>
+                                    <field name="students_line"
+                                           nolabel="1">
+                                        <tree string="Student Details">
+                                            <field name="student_id"/>
+                                            <field name="marks"/>
+                                            <field name="course_id" />
+                                            <field name="batch_id"/>
+                                            <field name="note" />
+                                        </tree>
+                                        <form>
+                                            <group cols="2" colspan="2">
+                                                <field name="student_id" />
+                                                <field name="marks" />
+                                                <field name="course_id" />
+                                                <field name="batch_id" domain="[('course_id', '=', course_id)]"/>
+                                                <field name="note"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                         </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_student_grades_search" model="ir.ui.view">
+            <field name="name">student.grades.search</field>
+            <field name="model">student.grades</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Grades">
+                    <field name="name"/>
+                    <field name="grade_code"/>
+                    <field name="subject_id"/>
+                    <field name="course_id"/>
+                    <field name="batch_id"/>
+                    <!--<field name="state"/>-->
+                    <field name="note"/>
+                    <field name="total_marks"/>
+                    <field name="min_marks"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Subject" name="group_by_grade_subject_id"
+                                domain="[]" context="{'group_by':'subject_id'}"/>
+                        <filter string="Grade Code" name="group_by_grade_code"
+                                domain="[]" context="{'group_by':'grade_code'}"/>
+                        <filter string="Grades" name="group_by_grade_name"
+                                domain="[]" context="{'group_by':'name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_student_grades_view">
+            <field name="name">Grades</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">student.grades</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_student_grades_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_student_grades_view_form">
+            <field name="act_window_id" ref="act_open_student_grades_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_student_grades_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_student_grades_view_tree">
+            <field name="act_window_id" ref="act_open_student_grades_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_student_grades_tree"/>
+        </record>
+    </data>
+</odoo>

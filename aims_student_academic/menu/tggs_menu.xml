@@ -22,55 +22,69 @@
                   parent="menu_school_school_root"
                   sequence="20"/>
 
-        <menuitem id="menu_category_category_main"
-                  name="Programs"
-                  sequence="60"
+        <menuitem id="menu_op_academic_academic_course"
+                  name="Course Management"
                   parent="menu_op_academic_academic_main"
-                  action="act_open_student_category_view"
-                  groups="base.group_user"/>
+                  sequence="10"/>
 
         <menuitem id="menu_course_course_main"
                   name="Courses"
-                  parent="menu_op_academic_academic_main"
+                  parent="menu_op_academic_academic_course"
                   sequence="20"
                   action="act_open_student_course_view"
                   groups="base.group_user"/>
 
+        <menuitem id="menu_subject_subject_main"
+                  name="Subjects"
+                  sequence="30"
+                  parent="menu_op_academic_academic_course"
+                  action="act_open_student_subject_view"
+                  groups="group_student_faculty,group_student_back_office_admin,group_student_back_office"/>
+
         <menuitem id="menu_batch_batch_main"
                   name="Batches"
-                  parent="menu_op_academic_academic_main"
-                  sequence="30"
+                  parent="menu_op_academic_academic_course"
+                  sequence="40"
                   action="act_open_student_batch_view"
                   groups="base.group_user"/>
 
-        <menuitem id="menu_subject_subject_main"
-                  name="Subjects"
-                  sequence="40"
-                  parent="menu_op_academic_academic_main"
-                  action="act_open_student_subject_view"
-                  groups="base.group_user"/>
-
-
-        <menuitem id="menu_classroom_classroom_main"
-                  name="Classrooms"
+        <menuitem id="menu_category_category_main"
+                  name="Programs"
                   sequence="50"
-                  parent="menu_op_academic_academic_main"
+                  parent="menu_op_academic_academic_course"
+                  action="act_open_student_category_view"
                   groups="base.group_user"/>
+
+        <menuitem id="menu_op_academic_faculty"
+                  name="Faculties Management"
+                  parent="menu_op_academic_academic_main"
+                  sequence="20"/>
 
         <menuitem id="menu_faculty_faculty_main"
                   name="Faculty"
-                  sequence="40"
-                  parent="menu_op_academic_academic_main"
+                  sequence="10"
+                  parent="menu_op_academic_faculty"
                   action="act_open_student_faculty_view"
-                  groups="base.group_user"/>
+                  groups="group_student_faculty,group_student_back_office_admin"/>
 
         <menuitem id="menu_affairs_affairs_main"
                   name="Academic Affairs"
-                  sequence="40"
-                  parent="menu_op_academic_academic_main"
+                  sequence="20"
+                  parent="menu_op_academic_faculty"
                   action="act_open_student_affairs_view"
-                  groups="base.group_user"/>
+                  groups="group_student_back_office,group_student_back_office_admin"/>
 
+        <menuitem id="menu_op_academic_grades"
+                  name="Grades Management"
+                  parent="menu_op_academic_academic_main"
+                  sequence="30"/>
+
+        <!-- TEST -->
+        <menuitem id="menu_test_test_main"
+                  name="Test Section"
+                  sequence="60"
+                  parent="menu_school_school_root"
+                  />
 
         <!-- TRANSCRIPT -->
         <menuitem id="menu_grades_grades_main"
@@ -89,7 +103,6 @@
         <menuitem id="menu_op_thesis_publications_main"
                   name="Thesis and Publications"
                   parent="menu_school_school_root"
-                  action="act_open_student_category_view"
                   sequence="40"/>
 
         <!-- INTERNSHIP -->
@@ -102,7 +115,8 @@
         <menuitem id="menu_op_visa_visa_main"
                   name="VISA"
                   parent="menu_school_school_root"
-                  action="act_open_student_category_view"
                   sequence="60"/>
+
+
     </data>
 </odoo>

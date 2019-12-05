@@ -54,7 +54,7 @@ class StudentFaculty(models.Model):
     def res_partner_name(self):
         for record in self:
             if record.last_name:
-                record.name = str(record.first_name) + ' ' + str(record.middle_name[0]) + ' ' + str(record.last_name)
+                record.name = str(record.first_name) + ' ' + (str(record.middle_name[0]) or '') + ' ' + str(record.last_name)
 
     @api.multi
     def create_employee(self):

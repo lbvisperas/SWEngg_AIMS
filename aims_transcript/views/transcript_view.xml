@@ -6,12 +6,13 @@
         <field name="model">student.grades</field>
         <field name="priority" eval="8"/>
         <field name="arch" type="xml">
-            <tree string="Transcript">
+            <tree string="Transcript" create="false" edit="false" delete="false">
                 <field name="student_id"/>
                 <field name="full_name"/>
                 <field name="program"/>
-                <field name="student_course_id"/>
+                <field name="student_course"/>
                 <field name="education_level"/>
+                <field name="semester"/>
                 <field name="gpa"/>
             </tree>
         </field>
@@ -22,29 +23,37 @@
         <field name="model">student.grades</field>
         <field name="priority" eval="8"/>
         <field name="arch" type="xml">
-            <form string="Transcript" create="false" edit="false">
+            <form string="Transcript" create="false" edit="false" delete="false">
                 <header>
+<!--                    <button string="Reset Draft" name="action_reset_draft"-->
+<!--                            groups="base.group_user"-->
+<!--                            type="object" class="oe_highlight"-->
+<!--                            attrs="{'invisible': [('state', '=', 'draft')] }"/>-->
                     <button string="Request" name="action_submitted"
                             groups="aims_transcript.group_student"
                             type="object" class="oe_highlight"
                             attrs="{'invisible': [('state', '!=', 'draft')] }"/>
+<!--                    <button string="Download Transcript Request" name="download_transcript"-->
+<!--                            groups="aims_transcript.group_academic_affair"-->
+<!--                            type="object" class="oe_highlight"-->
+<!--                            attrs="{'invisible': [('state', '!=', 'request')] }"/>-->
                     <field name="state" widget="statusbar" statusbar_visible="draft,request"/>
                 </header>
                 <sheet>
                     <group name="main" string="Student Information">
-                        <field name="student_no" on_change="onchange_student(student_no)" readonly="1"/>
-                        <field name="student_id" readonly="1" force_save="1"/>
-                        <field name="full_name" readonly="1" force_save="1"/>
-                        <field name="first_name" invisible="1"/>
-                        <field name="middle_name" invisible="1"/>
-                        <field name="last_name" invisible="1" />
+                        <field name="student_id" readonly="1"/>
+                        <field name="full_name" readonly="1"/>
+                        <field name="study_school" readonly="1"/>
+                        <field name="study_field" readonly="1"/>
+                        <field name="program" readonly="1"/>
+                        <field name="education_level" readonly="1"/>
                     </group>
                     <group string="Student Course">
-                        <field name="study_school" readonly="1" force_save="1"/>
-                        <field name="study_field" readonly="1" force_save="1"/>
-                        <field name="program" readonly="1" force_save="1"/>
-                        <field name="student_course_id" readonly="1" force_save="1"/>
-                        <field name="education_level" readonly="1" force_save="1"/>
+                        <field name="student_course" readonly="1"/>
+                        <field name="semester" readonly="1"/>
+                        <field name="gpa" readonly="1"/>
+                        <field name="report_transcript" filename="report_name" attrs="{'invisible':[('state', '=', 'draft')]}"></field>
+                        <field name="report_name" invisible="1"></field>
                     </group>
                     <group string="Student Transcript" name="grades">
                         <field name="student_grades_id" nolabel="1" readonly="1"/>

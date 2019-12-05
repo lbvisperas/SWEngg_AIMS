@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_student_student_form_grades_inherit" model="ir.ui.view">
+            <field name="name">student.student.form.grades_inherit</field>
+            <field name="model">student.student</field>
+            <field name="inherit_id" ref="aims_student_academic.view_student_student_form" />
+            <field name="priority" eval="9" />
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page name="grades" string="Grades">
+                        <field name="allocation_ids" colspan="4" nolabel="1">
+                            <tree string="Grades">
+                                <field name="name" />
+                                <field name="course_id" />
+                                <field name="batch_id" />
+                                <field name="subject_id" />
+                                <field name="reviewer" />
+                                <field name="marks" />
+                                <field name="state" />
+                                <!--<field name="issued_date" />
+                                <field name="submission_date" />-->
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -169,7 +169,7 @@
                                     </div>
                                 </group>
                             </page>
-                          <page name="educational" string="Educational">
+                          <page name="educational" string="Registration">
                                 <group>
                                     <group colspan="3">
                                         <field name="student_no"/>
@@ -183,16 +183,16 @@
                                     <field name="course_detail_ids"
                                            nolabel="1">
                                         <tree string="Course Details">
-                                            <field name="course_id" />
-                                            <field name="batch_id"/>
-                                            <field name="department"/>
+                                            <field name="course_id" readonly="1"/>
+                                            <field name="batch_id" readonly="1"/>
+                                            <field name="department" readonly="1"/>
                                             <field name="subject_ids" widget="many2many_tags"/>
                                         </tree>
                                         <form>
                                             <group cols="2" colspan="2">
-                                                <field name="batch_id"/>
-                                                <field name="course_id" domain="[('batch_id', '=', batch_id)]"/>
-                                                <field name="department"/>
+                                                <field name="course_id" />
+                                                <field name="batch_id" domain="[('course_id', '=', course_id)]" />
+                                                <field name="department" />
                                             </group>
                                             <group col="4" string="Subjects">
                                                 <field name="subject_ids" colspan="4" nolabel="1"/>
