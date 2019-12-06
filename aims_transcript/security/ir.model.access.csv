@@ -6,3 +6,4 @@ access_academic_affair_grades,Academic Affair,model_student_grades,aims_student_
 access_sgrades,access.student.sgrades,model_student_sgrades,aims_student_academic.group_student_back_office_admin,1,1,1,1
 access_sgrades,access.student.sgrades,model_student_sgrades,aims_student_academic.group_student_back_office,1,1,1,1
 access_sgrades,access.student.sgrades,model_student_sgrades,aims_student_academic.group_student_back_office,1,1,0,0
+
