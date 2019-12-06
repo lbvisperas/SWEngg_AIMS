@@ -1,9 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_student_grades,Student,model_student_grades,aims_student_academic.group_student_student,1,1,0,0
+access_student_grades,student,model_student_grades,aims_student_academic.group_student_student,1,1,0,0
 access_academic_affair_grades,Academic Affair,model_student_grades,aims_student_academic.group_student_back_office_admin,1,1,1,1
 access_academic_affair_grades,Academic Affair,model_student_grades,aims_student_academic.group_student_back_office,1,1,1,1
 access_academic_affair_grades,Academic Affair,model_student_grades,aims_student_academic.group_student_faculty,1,1,1,0
 access_sgrades,access.student.sgrades,model_student_sgrades,aims_student_academic.group_student_back_office_admin,1,1,1,1
 access_sgrades,access.student.sgrades,model_student_sgrades,aims_student_academic.group_student_back_office,1,1,1,1
 access_sgrades,access.student.sgrades,model_student_sgrades,aims_student_academic.group_student_back_office,1,1,0,0
-

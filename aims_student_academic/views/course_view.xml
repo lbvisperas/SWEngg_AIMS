@@ -13,7 +13,7 @@
                     <field name="evaluation_type"/>
                     <field name="parent_id"/>
                     <field name="subject_ids" widget="many2many_tags"/>
-                    <field name="batch_id" widget="many2many_tags"/>
+                    <!--<field name="batch_id" widget="many2many_tags"/>-->
                 </tree>
             </field>
         </record>
@@ -37,9 +37,9 @@
                         <group string="Subjects" name="subject">
                             <field name="subject_ids" nolabel="1"/>
                         </group>
-                        <group string="Batches" name="batch">
+                        <!--<group string="Batches" name="batch">
                             <field name="batch_id" nolabel="1" domain="[('course_id', '=', name)]"/>
-                        </group>
+                        </group>-->
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>

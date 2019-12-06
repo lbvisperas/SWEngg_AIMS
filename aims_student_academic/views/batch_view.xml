@@ -25,7 +25,7 @@
                 <form string="Batch">
                     <sheet>
                         <group col="4" name="main">
-                            <field name="name" readonly="1"/>
+                            <field name="name"  placeholder="SSE_2010_First_Semester"/>
                             <field name="course_id"/>
                             <field name="year"/>
                             <field name="semester"/>

@@ -13,8 +13,8 @@ class StudentFaculty(models.Model):
     partner_id = fields.Many2one('res.partner', 'Partner',
                                  required=True, ondelete="cascade")
     first_name = fields.Char('First Name', size=128)
-    middle_name = fields.Char('Middle Name', size=128)
-    last_name = fields.Char('Last Name', size=128, required=True)
+    middle_name = fields.Char('Middle Name', size=128, required=True)
+    last_name = fields.Char('Last Name', size=256, required=True)
     birth_date = fields.Date('Birth Date', required=True)
     gender = fields.Selection([
         ('male', 'Male'),
@@ -48,38 +48,6 @@ class StudentFaculty(models.Model):
             if record.birth_date > fields.Date.today():
                 raise ValidationError(_(
                     "Birth Date can't be greater than current date!"))
-    @api.multi
-    @api.constrains('first_name')
-    def name_check(self):
-        for record in self:
-            if len(record.first_name) > 128:
-                raise ValidationError(_(
-                    "[ERROR] First Name cannot be greater than 128 characters"))
-            if len(record.first_name) < 1:
-                raise ValidationError(_(
-                    "[ERROR] First Name cannot be less than 1 character"))
-
-    @api.multi
-    @api.constrains('last_name')
-    def name_check(self):
-        for record in self:
-            if len(record.last_name) > 128:
-                raise ValidationError(_(
-                    "[ERROR] Last Name cannot be greater than 128 characters"))
-            if len(record.last_name) < 1:
-                raise ValidationError(_(
-                    "[ERROR] Last Name cannot be less than 1 character"))
-
-    @api.multi
-    @api.constrains('middle_name')
-    def name_check(self):
-        for record in self:
-            if len(record.middle_name) > 128:
-                raise ValidationError(_(
-                    "[ERROR] Middle Name cannot be greater than 128 characters"))
-            if len(record.middle_name) < 1:
-                raise ValidationError(_(
-                    "[ERROR] Middle cannot be less than 1 character"))
 
     @api.multi
     @api.onchange('last_name')
@@ -92,8 +60,7 @@ class StudentFaculty(models.Model):
     def create_employee(self):
         for record in self:
             vals = {
-                'name': record.name + ' ' + (record.middle_name or '') +
-                ' ' + record.last_name,
+                'name': str(record.first_name) + ' ' + (str(record.middle_name[0]) or '') + ' ' + str(record.last_name),
                 'country_id': record.nationality.id,
                 'gender': record.gender,
                 'address_home_id': record.partner_id.id
@@ -109,8 +76,7 @@ class StudentFaculty(models.Model):
         for record in self:
             if not record.user_id:
                 user_id = users_res.create({
-                    'name': str(record.first_name) + ' ' + (str(record.middle_name[0]) or '') + ' ' + str(
-                        record.last_name),
+                    'name': str(record.first_name) + ' ' + (str(record.middle_name[0]) or '') + ' ' + str(record.last_name),
                     'partner_id': record.partner_id.id,
                     'login': record.email or (record.first_name + ' ' + record.last_name),
                     'groups_id': user_group,

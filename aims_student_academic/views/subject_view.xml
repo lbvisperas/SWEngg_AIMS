@@ -26,8 +26,8 @@
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <form string="Subject">
-                    <!---<header>
-                        <button name="action_submitted" string="Submit"
+                    <header>
+                        <!--<button name="action_submitted" string="Submit"
                                 groups="group_student_faculty"
                                 type="object" class="oe_highlight" states="draft"/>
                         <button name="action_approve" string="Approve"
@@ -42,8 +42,8 @@
                                 groups="group_student_faculty"
                                 states="rejected" type="object"
                                 name="action_reset_draft"/>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,rejected"/>
-                    </header>-->
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,rejected"/>-->
+                    </header>
                     <sheet>
                         <group col="4">
                             <field name="name"/>

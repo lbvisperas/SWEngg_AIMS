@@ -75,7 +75,7 @@ class Grade(models.Model):
     def onchange_student_course(self, context=None):
         for record in self:
             record.student_id = record.student_no.student_no
-            record.first_name = record.student_no.name
+            record.first_name = record.student_no.first_name
             record.middle_name = record.student_no.middle_name
             record.last_name = record.student_no.last_name
             record.education_level = record.student_no.education_level

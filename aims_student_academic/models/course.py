@@ -30,22 +30,22 @@ class StudentCourse(models.Model):
          '[ERROR] Name should be unique per subject!')
     ]
 
-    @api.multi
-    @api.constrains('mix_unit_load', 'max_unit_load')
-    def constrain_course_details(self):
-        for record in self:
-            if len(record.min_unit_load) > 4:
-                raise ValidationError(_(
-                    "[ERROR] Min Unit load cannot greater than 4 characters"))
-            if len(record.min_unit_load) < 1:
-                raise ValidationError(_(
-                    "[ERROR] Min Unit load cannot be less than 1 character"))
-            if len(record.max_unit_load) > 4:
-                raise ValidationError(_(
-                    "[ERROR] Max Unit load cannot greater than 4 characters"))
-            if len(record.max_unit_load) < 1:
-                raise ValidationError(_(
-                    "[ERROR] Max Unit load cannot be less than 1 character"))
+    #@api.multi
+    #@api.constrains('mix_unit_load', 'max_unit_load')
+    #def constrain_course_details(self):
+    #    for record in self:
+    #        if len(record.min_unit_load) > 4:
+    #            raise ValidationError(_(
+    #                "[ERROR] Min Unit load cannot greater than 4 characters"))
+    #        if len(record.min_unit_load) < 1:
+    #            raise ValidationError(_(
+    #                "[ERROR] Min Unit load cannot be less than 1 character"))
+    #        if len(record.max_unit_load) > 4:
+    #            raise ValidationError(_(
+    #                "[ERROR] Max Unit load cannot greater than 4 characters"))
+    #        if len(record.max_unit_load) < 1:
+    #            raise ValidationError(_(
+    #               "[ERROR] Max Unit load cannot be less than 1 character"))
 
     @api.multi
     @api.constrains('name')

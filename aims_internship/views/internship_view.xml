@@ -22,29 +22,6 @@
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <form string="Course Registration">
-                    <header>
-                        <button name="draft_progressbar"
-                                string="Set to draft"
-                                type="object" attrs="{'invisible': [('state', '=', 'draft')] }"
-                                groups="base.group_user"/>
-                        <button name="started_progressbar"
-                                string="Set to started"
-                                class="oe_highlight"
-                                type="object"
-                                attrs="{'invisible': [('state', '!=', 'draft')] }"
-                                groups="base.group_user"/>
-                        <button name="progress_progressbar"
-                                string="In progress"
-                                type="object"
-                                attrs="{'invisible': [('state', '=', 'progress')] }"
-                                groups="base.group_user"/>
-                        <button name="done_progressbar"
-                                string="Done"
-                                type="object"
-                                attrs="{'invisible': [('state', '=', 'finished')] }"
-                                groups="base.group_user"/>
-                        <field name="state" widget="statusbar"/>
-                    </header>
                     <sheet>
                     <group>
 							<group>

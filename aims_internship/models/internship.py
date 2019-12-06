@@ -22,14 +22,7 @@ class StudentInternship(models.Model):
 	adv_phone = fields.Char(string='Phone') #based on faculty => create separate model advisor.py that inherits faculty
 	adv_email = fields.Char(string='Email') #based on faculty => create separate model advisor.py that inherits faculty
 
-	state = fields.Selection([('draft', 'Draft'), ('started', 'Started'), ('progress', 'In progress'),
-							  ('finished', 'Done'), ], required=True, default='draft')
-
-	@api.one
-	def draft_progressbar(self):
-		self.write({
-			'state': 'draft'
-		})
+	state = fields.Selection([('started', 'Started'), ('finished', 'Done')])
 
 	@api.one
 	def started_progressbar(self):
@@ -37,11 +30,6 @@ class StudentInternship(models.Model):
 			'state': 'started'
 		})
 
-	@api.one
-	def progress_progressbar(self):
-		self.write({
-			'state': 'progress'
-		})
 
 	@api.one
 	def done_progressbar(self):

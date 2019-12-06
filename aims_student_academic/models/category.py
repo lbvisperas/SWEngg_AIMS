@@ -22,10 +22,6 @@ class StudentCategory(models.Model):
             if len(record.name) > 128:
                 raise ValidationError(_(
                     "[ERROR] Name cannot be greater than 128 characters"))
-            if len(record.name) < 1:
-                raise ValidationError(_(
-                    "[ERROR] Name cannot be less than 1 character"))
-
     @api.multi
     @api.constrains('description')
     def desc_check(self):
@@ -33,6 +29,3 @@ class StudentCategory(models.Model):
             if len(record.description) > 256:
                 raise ValidationError(_(
                     "[ERROR] Name cannot be greater than 256 characters"))
-            if len(record.description) < 256:
-                raise ValidationError(_(
-                    "[ERROR] Name cannot be less than 1 character"))

@@ -9,8 +9,8 @@ class StudentBatch(models.Model):
     _inherit = "mail.thread"
     _description = "TGGS Batch"
 
-    name = fields.Char('Name', size=128, default='SSE_2010_First_Semester')
-    year = fields.Char('Year', size=4, required=True, default='2019')
+    name = fields.Char('Name', size=128)
+    year = fields.Char('Year', size=4, required=True)
     semester = fields.Selection([
         ('First_Semester', 'First_Semester'),
         ('Second_Semester', 'Second_Semester'),
@@ -22,7 +22,7 @@ class StudentBatch(models.Model):
 
     _sql_constraints = [(
         'unique_name',
-        'unique(name)',
+        'unique(name,year,semester,course_id)',
         '[ERROR] Batch already exists. Batches must only have one entry! '
     )]
 
@@ -30,7 +30,10 @@ class StudentBatch(models.Model):
     @api.onchange('course_id', 'year', 'semester')
     def batch_name(self):
         for record in self:
-            record.name = (str(record.course_id.code) or ' ') + '_' + (str(record.year) or ' ') + '_' + (str(record.semester) or ' ')
+            if record.year:
+                record.name = (str(record.course_id.code) or ' ') + '_' + (str(record.year) or ' ') + '_' + (str(record.semester) or ' ')
+            if record.semester:
+                record.name = (str(record.course_id.code) or ' ') + '_' + (str(record.year) or ' ') + '_' + (str(record.semester) or ' ')
 
     @api.multi
     @api.constrains('start_date', 'end_date')

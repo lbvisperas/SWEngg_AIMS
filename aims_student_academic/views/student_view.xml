@@ -140,7 +140,7 @@
                                     <field name="mobile" required="1"/>
                                     <field name="user_id" string="User" readonly="1"/>
                                     <field name="email" required="1"/>
-                                    <field name="partner_id" placeholder="Username" readonly="1"/>
+                                    <field name="partner_id" placeholder="Username"/>
                                 </group>
                                 <group  string = "Passport Information" col="4" colspan="4" name="visa_detail">
                                     <field name="passport_number" attrs="{'invisible':[('nat_check', '=', True)]}" />

@@ -60,17 +60,17 @@ class StudentStudent(models.Model):
 
     # Mobile and Email are actually inherited from res.partner; and are / will be equal <=>
     mobile = fields.Char('Mobile', size=10)
-    email = fields.Char('Email', size=128, track_visibility='always')
-    emergency_contact = fields.Many2one('res.partner', 'Emergency Contact', required=True)
+    email = fields.Char('Email', size=128)
+    emergency_contact = fields.Many2one('res.partner', 'Emergency Contact / Parent')
     #mother_name = fields.Many2one('res.partner', 'Mother Name', required=True)
     #father_name = fields.Many2one('res.partner', 'Father Name', required=True)
     partner_id = fields.Many2one('res.partner', 'Contact Info', ondelete="cascade", required=True)
 
     # PASSPORT INFORMATION
-    passport_number = fields.Char(string='Passport Number', track_visibility='always', size=128, required=True)
+    passport_number = fields.Char(string='Passport Number', track_visibility='always', size=128)
     passport_issue = fields.Date('Passport Issuance Date')
     passport_expire = fields.Date('Passport Expiry Date')
-    visa_number = fields.Char('Visa Number', size=20, required=True)
+    visa_number = fields.Char('Visa Number', size=20)
     visa_issue = fields.Date('Visa Issuance Date')
     visa_expire = fields.Date('Visa Expiry Date')
 
@@ -186,9 +186,6 @@ class StudentStudent(models.Model):
             if len(record.passport_number) > 128:
                 raise ValidationError(_(
                     "[ERROR] Passport Number cannot be greater than 128 characters"))
-            if len(record.passport_number) < 1:
-                raise ValidationError(_(
-                    "[ERROR] Passport Number cannot be less than 1 character"))
 
     @api.multi
     @api.constrains('visa_number')
@@ -231,7 +228,11 @@ class StudentStudent(models.Model):
                         "[ERROR] Mobile number must be a VALID 10 digit Thailand Number (e.g. 0656049400) %s" %str(record.mobile[0:1])))
                 else:
                     record.partner_id.mobile = record.mobile
+                    record.email= ((str(record.first_name)).lower() or '') + '.' + \
+                                   ((str(record.last_name[0])).lower() or '') + '-' \
+                                   + ((str(record.student_course_id.code)).lower() or '') + '2019@tggs.kmutnb.ac.th'
                     record.partner_id.email = record.email
+
 
     # Course Test Relationship <=> is course equivalent to parent
     @api.multi
@@ -243,18 +244,6 @@ class StudentStudent(models.Model):
             if record.course_detail_ids:
                 record.course_detail_ids.course_id = record.student_course_id
                 record.course_detail_ids.department = record.student_department
-
-    @api.multi
-    @api.onchange('student_course_id', 'first_name', 'last_name')
-    def onchange_email(self):
-        for record in self:
-            if record.email:
-                record.email = ((str(record.first_name)).lower() or '') + '.' + \
-                               ((str(record.last_name[0])).lower() or '') + '-' \
-                               + ((str(record.student_course_id.code)).lower() or '') + '2019@tggs.kmutnb.ac.th'
-                record.partner_id.email = record.email
-            if record.name:
-                record.name = str(record.first_name) + ' ' + (str(record.middle_name[0]) or '') + ' ' + str(record.last_name)
 
     @api.multi
     @api.constrains('course_detail_ids')
